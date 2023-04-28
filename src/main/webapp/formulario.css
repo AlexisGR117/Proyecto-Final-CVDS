@@ -1,0 +1,19 @@
+/* reset on the showcase style*/
+body .ui-panelgrid .ui-panelgrid-cell {
+    background-color: transparent;
+}
+/* example use of styles for your form */
+.my-heading-row {
+    background-color: var(--surface-c);
+    font-weight: bold;
+}
+
+.fila {
+    background-color: transparent;
+}
+
+.centrar {
+    display: flex;
+    justify-content:center;
+    align-items:center
+}

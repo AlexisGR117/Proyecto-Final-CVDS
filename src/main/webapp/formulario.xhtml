@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Agendar Consulta</title>
+        <link rel="stylesheet" href="formulario.css"/>
+    </h:head>
+    <h:body>
+        <p:growl id="mensaje" showDetail="true"/>
+        <h:form>
+            <p:panelGrid columns="4"
+                         columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+                         layout="grid"
+                         styleClass="ui-panelgrid-blank ui-fluid"
+                         style="border:0px none; background-color:transparent;">
+                <p:row styleClass="my-heading-row">
+                    <p:column styleClass="ui-grid-col-12">
+                        <p:outputLabel value="Información del Usuario"/>
+                    </p:column>
+                </p:row>
+                <p:outputLabel for="@next" value="Nombre"/>
+                <p:inputText/>
+                <p:outputLabel for="@next" value="Correo"/>
+                <p:inputText/>
+                <p:outputLabel for="@next" value="Telefono"/>
+                <p:inputText/>
+                <p:outputLabel for="@next" value="Ciudad"/>
+                <p:inputText/>
+                <p:outputLabel for="@next" value="Número de Identificación"/>
+                <p:inputText/>
+                <p:row styleClass="my-heading-row">
+                    <p:column styleClass="ui-grid-col-12">
+                        <p:outputLabel value="Información de la Consulta"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column styleClass="ui-grid-col-12">
+                        <p:outputLabel for="razon" value="Razón de la Consulta"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column styleClass="ui-grid-col-12">
+                    <p:inputTextarea rows="5" id="razon"/>
+                    </p:column>
+                </p:row>
+                <p:row style="text-align: center">
+                    <p:column styleClass="ui-grid-col-12">
+                        <h:outputText value="Fecha de la consulta" style="font-weight: bold" />
+                    </p:column>
+                    <p:column styleClass="ui-grid-col-12">
+                        <h:outputText id="title" value="Horarios disponibles" style="font-weight: bold" />
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column styleClass="ui-grid-col-12">
+                        <p:datePicker inline="true"
+                                      readonlyInput="true">
+                            <p:ajax event="dateSelect" update="advanced4 title" />
+                        </p:datePicker>
+                    </p:column>
+                    <p:column styleClass="ui-grid-col-12" style="display: flex; justify-content:center; align-items:center">
+                        <p:selectOneListbox id="advanced4" var="d" scrollHeight="400">
+                            <p:ajax update="mensaje" />
+                            <f:selectItems var="date" itemLabel="#{date}" itemValue="#{date}" />
+                            <p:column>
+                                <h:outputText value="#{d}"/>
+                            </p:column>
+                        </p:selectOneListbox>
+                    </p:column>
+                </p:row>
+                <p:row styleClass="my-heading-row">
+                    <p:column styleClass="ui-grid-col-12">
+                        <p:outputLabel value="Pago"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column styleClass="ui-grid-col-12">
+                        <p:outputLabel value="Comprobante de Pago"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column styleClass="ui-grid-col-12">
+                        <p:fileUpload mode="advanced" dragDropSupport="true"
+                                      update="mensaje" sizeLimit="1000000" allowTypes="/(\.|\/)(pdf|jpe?g|png)$/"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column styleClass="ui-grid-col-12">
+                        <p:outputLabel value="Firma"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column styleClass="ui-grid-col-12">
+                        <p:signature style="width:400px;height:200px" widgetVar="sig"
+                                     required="true" guideline="true"/>
+
+                        <div >
+                            <p:commandButton value="Submit" icon="pi pi-check" update="output" style="margin-bottom: 1rem;margin-top: 1rem"/>
+
+                            <p:commandButton value="Clear" icon="pi pi-times" type="button" onclick="PF('sig').clear()" styleClass="ui-button-outlined" />
+                        </div>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column styleClass="ui-grid-col-12">
+                        <p:outputLabel value="Su Firma"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column styleClass="ui-grid-col-12">
+                        <p:outputPanel id="output">
+                            <p:signature style="width:400px;height:200px;" readonly="true"
+                                         backgroundColor="#eaeaea" color="#03a9f4"/>
+                        </p:outputPanel>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column styleClass="ui-grid-col-12">
+                        <p:selectBooleanCheckbox itemLabel="Aceptar terminos y condiciones">
+                            <p:ajax update="mensaje"/>
+                        </p:selectBooleanCheckbox>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column styleClass="ui-grid-col-12">
+                        <p:commandButton value="Programar Consulta" icon="pi pi-calendar"/>
+                    </p:column>
+                </p:row>
+            </p:panelGrid>
+        </h:form>
+    </h:body>
+</html>
