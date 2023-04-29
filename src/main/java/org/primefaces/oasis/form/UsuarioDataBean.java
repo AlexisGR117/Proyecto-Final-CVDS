@@ -14,6 +14,9 @@ import org.springframework.web.context.annotation.ApplicationScope;
 import javax.faces.bean.ManagedBean;
 import java.io.Serializable;
 
+/**
+ * Lombock creara los getter, setters, constructor equals, to String y demas con la opcion de @Data
+ */
 @Component
 @ManagedBean(name = "usuarioDataBean")
 @ApplicationScope

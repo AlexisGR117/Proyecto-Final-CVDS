@@ -1,6 +1,6 @@
 package org.primefaces.oasis.data;
 
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.File;
@@ -9,9 +9,19 @@ import java.time.LocalTime;
 import java.util.Date;
 import java.util.Objects;
 
+
+/**
+ * el @Table es para que si so si asi se llama la tabla en la base de datos.
+ * Lombock generara  equals y hashcode automaticamente es decir no aparece ene l codigo pero en running time existen y pueden ser llamados
+ * Lombock generara los getter y setters segun se modificquen es decir existen mas  no aparecen el codigo
+ * Lombock creara el consstructor con solo algunos de los atributos estos son los que tienen la etiqueta @nOnULL
+ */
+
 @Entity
 @Table(name="CONSULTAS")
 @EqualsAndHashCode
+@Getter @Setter
+@AllArgsConstructor
 public class Consulta {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,80 +38,21 @@ public class Consulta {
     @Column(name = "FECHA_CONSULTA")
     private LocalDate fechaConsulta;
 
+    @Column(name = "DIA_CONSULTA")
+    @NonNull private String diaConsulta;
+
+    @Column(name= "MES_CONSULTA")
+    @NonNull private String mesConsulta;
+
+    @Column(name = "ANO_CONSULTA")
+    @NonNull private String anoConsulta;
     @Column(name = "HORA_CONSULTA")
-    private LocalTime horaConsulta;
+    @NonNull private String horaConsulta;
 
     @Column(name = "COMPROBANTE_PAGO")
-    private File comprobandoPago;
-
-
+    @NonNull private File comprobandoPago;
     /**
      * Constructor vacio
      */
     public Consulta(){}
-
-    /**
-     *
-     *
-     * @param razonConsulta
-     * @param fechaConsulta
-     * @param horaConsulta
-     * @param comprobandoPago
-     */
-    public Consulta(String razonConsulta, LocalDate fechaConsulta, LocalTime horaConsulta, File comprobandoPago) {
-        //this.usuarioId = usuarioId;
-        this.razonConsulta = razonConsulta;
-        this.fechaConsulta = fechaConsulta;
-        this.horaConsulta = horaConsulta;
-        this.comprobandoPago = comprobandoPago;
-    }
-
-    public Long getIdConsulta() {
-        return idConsulta;
-    }
-
-    public void setIdConsulta(Long idConsulta) {
-        this.idConsulta = idConsulta;
-    }
-
-    /** public Usuario getUsuarioId() {
-        return usuarioId;
-    }
-    */
-    /** public void setUsuarioId(Usuario usuarioId) {
-        this.usuarioId = usuarioId;
-    }
-    */
-    public String getRazonConsulta() {
-        return razonConsulta;
-    }
-
-    public void setRazonConsulta(String razonConsulta) {
-        this.razonConsulta = razonConsulta;
-    }
-
-    public LocalDate getFechaConsulta() {
-        return fechaConsulta;
-    }
-
-    public void setFechaConsulta(LocalDate fechaConsulta) {
-        this.fechaConsulta = fechaConsulta;
-    }
-
-    public LocalTime getHoraConsulta() {
-        return horaConsulta;
-    }
-
-    public void setHoraConsulta(LocalTime horaConsulta) {
-        this.horaConsulta = horaConsulta;
-    }
-
-    public File getComprobandoPago() {
-        return comprobandoPago;
-    }
-
-    public void setComprobandoPago(File comprobandoPago) {
-        this.comprobandoPago = comprobandoPago;
-    }
-
 }
