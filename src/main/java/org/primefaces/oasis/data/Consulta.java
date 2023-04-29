@@ -1,6 +1,7 @@
 package org.primefaces.oasis.data;
 
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.io.File;
@@ -29,14 +30,14 @@ public class Consulta {
     private Long idConsulta;
 
     /**
-    @Column(name = "USUARIO_ID")
-    private Usuario usuarioId;
+    * @Column(name = "USUARIO_ID")
+    * private Usuario usuarioId;
     */
     @Column(name = "RAZON_CONSULTA")
-    private String razonConsulta;
+    @NonNull private String razonConsulta;
 
     @Column(name = "FECHA_CONSULTA")
-    private LocalDate fechaConsulta;
+    @NonNull private LocalDate fechaConsulta;
 
     @Column(name = "DIA_CONSULTA")
     @NonNull private String diaConsulta;
