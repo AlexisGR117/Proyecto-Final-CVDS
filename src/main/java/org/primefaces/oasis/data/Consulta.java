@@ -1,14 +1,10 @@
 package org.primefaces.oasis.data;
 
 import lombok.*;
-import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.io.File;
 import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.Date;
-import java.util.Objects;
 import java.util.StringJoiner;
 
 
@@ -24,11 +20,13 @@ import java.util.StringJoiner;
 @EqualsAndHashCode
 @Getter @Setter
 public class Consulta {
-    @Id
+    /**@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name= "ID_CONSULTA")
     private Long idConsulta;
-
+    */
+    @EmbeddedId
+    private ConsultaId id;
     /**
     * @Column(name = "USUARIO_ID")
     * private Usuario usuarioId;
@@ -62,21 +60,25 @@ public class Consulta {
      */
     public Consulta(){}
 
-    public Consulta(String razonConsulta, LocalDate fechaConsulta, String diaConsulta, String mesConsulta, String anoConsulta, String horaConsulta, File comprobandoPago, Usuario usuario) {
+    public Consulta(String razonConsulta, LocalDate fechaConsulta, String diaConsulta, String mesConsulta, String anoConsulta, String horaConsulta, Usuario usuario) {
         this.razonConsulta = razonConsulta;
-        this.fechaConsulta = fechaConsulta;
-        this.diaConsulta = diaConsulta;
-        this.mesConsulta = mesConsulta;
-        this.anoConsulta = anoConsulta;
-        this.horaConsulta = horaConsulta;
-        this.comprobandoPago = comprobandoPago;
+        id = new ConsultaId(anoConsulta, mesConsulta, diaConsulta, horaConsulta);
         this.usuario = usuario;
+        this.fechaConsulta = fechaConsulta;
+        setFechas();
+    }
+
+    private  void setFechas(){
+        anoConsulta = id.getAno();
+        mesConsulta = id.getMes();
+        diaConsulta = id.getDia();
+        horaConsulta = id.getHora();
     }
 
     @Override
     public String toString() {
         return new StringJoiner(", ", Consulta.class.getSimpleName() + "[", "]")
-                .add("idConsulta=" + idConsulta)
+                .add("consultaId=" + id)
                 .add("usuario=" + usuario)
                 .toString();
     }

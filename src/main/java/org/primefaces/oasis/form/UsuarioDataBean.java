@@ -55,7 +55,7 @@ public class UsuarioDataBean implements Serializable {
         return args ->{
             Usuario usuario1 = new Usuario("Jeffer", "jeffer.correo@masil.com","301234058","Bogota","1005679","1102891630036719");
             LocalDate fechaGenerica = LocalDate.now();
-            usuario1.anadirConsulta(new Consulta("consulta", fechaGenerica, "1", "3", "2023", "23:00", null, usuario1));
+            usuario1.anadirConsulta(new Consulta("consulta", fechaGenerica, "1", "3", "2023", "23:00", usuario1));
             usuarioService.addUsuario(usuario1);
             System.out.println("Usuario Creado......." + usuarioService.getUsuario(1L));
             usuarioService.getAllUsuarios();
