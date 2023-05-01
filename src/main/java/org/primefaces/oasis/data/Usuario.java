@@ -73,7 +73,7 @@ public class Usuario {
      * Este metodo añade consulta por consulta a el ususario ya que esta es una lista o coleccion.
      * @param consulta Es de tipo Consulta
      */
-    public void añadirConsulta(Consulta consulta){
+    public void anadirConsulta(Consulta consulta){
         consultas.add(consulta);
     }
 }
