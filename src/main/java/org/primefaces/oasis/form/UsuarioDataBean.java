@@ -1,6 +1,7 @@
 package org.primefaces.oasis.form;
 
 
+import jdk.vm.ci.meta.Local;
 import lombok.*;
 import org.primefaces.oasis.data.Consulta;
 import org.primefaces.oasis.data.Usuario;
@@ -16,7 +17,9 @@ import org.springframework.web.context.annotation.ApplicationScope;
 import javax.faces.bean.ManagedBean;
 import java.io.File;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Lombock creara los getter, setters, constructor equals, to String y demas con la opcion de @Data
@@ -40,6 +43,7 @@ public class UsuarioDataBean implements Serializable {
     private String hora;
     private File comprobantePago;
     private String razonConsulta;
+    private String firma;
     private Calendar calendar; //No estoy seguro que me permita hacer lo que pienzo esto es un TO DO
 
     public UsuarioDataBean(){
@@ -49,7 +53,14 @@ public class UsuarioDataBean implements Serializable {
     @Bean
     public CommandLineRunner usuarioActual() throws Exception{
         return args ->{
-            usuarioService.addUsuario(new Usuario("Jeffer", "jeffer@mail","301238","Bogota","10238"));
+            Usuario usuario1 = new Usuario("Jeffer", "jeffer.correo@masil.com","301234058","Bogota","1005679","1102891630036719");
+            LocalDate fechaGenerica = LocalDate.now();
+            File f = null;
+            usuario1.añadirConsulta(new Consulta("consulta", fechaGenerica, "1", "3", "2023", "23:00", null, usuario1));
+            List<Consulta> consultas =usuario1.getConsultas();
+            System.out.println(consultas.get(0));
+            usuarioService.addUsuario(usuario1);
+            System.out.println("Usuario Creado......." + usuarioService.getUsuario(1L));
             usuarioService.getAllUsuarios();
             usuarioService.deleteUsuario(1L);
             restart();

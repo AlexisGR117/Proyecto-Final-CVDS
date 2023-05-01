@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.Objects;
+import java.util.StringJoiner;
 
 
 /**
@@ -22,7 +23,6 @@ import java.util.Objects;
 @Table(name="CONSULTAS")
 @EqualsAndHashCode
 @Getter @Setter
-@AllArgsConstructor
 public class Consulta {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -34,25 +34,25 @@ public class Consulta {
     * private Usuario usuarioId;
     */
     @Column(name = "RAZON_CONSULTA")
-    @NonNull private String razonConsulta;
+    private String razonConsulta;
 
     @Column(name = "FECHA_CONSULTA")
-    @NonNull private LocalDate fechaConsulta;
+    private LocalDate fechaConsulta;
 
     @Column(name = "DIA_CONSULTA")
-    @NonNull private String diaConsulta;
+    private String diaConsulta;
 
     @Column(name= "MES_CONSULTA")
-    @NonNull private String mesConsulta;
+    private String mesConsulta;
 
     @Column(name = "ANO_CONSULTA")
-    @NonNull private String anoConsulta;
+    private String anoConsulta;
 
     @Column(name = "HORA_CONSULTA")
-    @NonNull private String horaConsulta;
+    private String horaConsulta;
 
     @Column(name = "COMPROBANTE_PAGO")
-    @NonNull private File comprobandoPago;
+    private File comprobandoPago;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id")
@@ -61,4 +61,23 @@ public class Consulta {
      * Constructor vacio
      */
     public Consulta(){}
+
+    public Consulta(String razonConsulta, LocalDate fechaConsulta, String diaConsulta, String mesConsulta, String anoConsulta, String horaConsulta, File comprobandoPago, Usuario usuario) {
+        this.razonConsulta = razonConsulta;
+        this.fechaConsulta = fechaConsulta;
+        this.diaConsulta = diaConsulta;
+        this.mesConsulta = mesConsulta;
+        this.anoConsulta = anoConsulta;
+        this.horaConsulta = horaConsulta;
+        this.comprobandoPago = comprobandoPago;
+        this.usuario = usuario;
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", Consulta.class.getSimpleName() + "[", "]")
+                .add("idConsulta=" + idConsulta)
+                .add("usuario=" + usuario)
+                .toString();
+    }
 }

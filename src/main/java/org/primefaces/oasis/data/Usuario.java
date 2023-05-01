@@ -1,16 +1,23 @@
 package org.primefaces.oasis.data;
 
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.StringJoiner;
 
 /**
  * Esta clase sera la encargada de contener los datos del usuario a la hora de la pedida  de la cita
  */
 @Entity
 @Table(name = "USUARIOS")
+@Getter @Setter @EqualsAndHashCode
 public class Usuario {
 
     @Id
@@ -33,97 +40,40 @@ public class Usuario {
     @Column(name = "IDENTIFICACION_USUARIO")
     private String documentoUsuario;
 
+    @Column(name = "FIRMA_USUARIO")
+    private String firmaUsuario;
+
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<Consulta> consultas = new ArrayList<>();
-
     /**
      * Constructor vacio por temas de posibles fallos dentro de el tiempo de ejecucion
      */
     public Usuario(){}
 
+    public Usuario(String nombreUsuario, String emailUsuario, String telefonoUsuario, String ciudadUsuario, String documentoUsuario, String firmaUsuario) {
+        this.nombreUsuario = nombreUsuario;
+        this.emailUsuario = emailUsuario;
+        this.telefonoUsuario = telefonoUsuario;
+        this.ciudadUsuario = ciudadUsuario;
+        this.documentoUsuario = documentoUsuario;
+        this.firmaUsuario = firmaUsuario;
+    }
+
     /**
-     * Constructor con parametros menos el id ya que este es un autoincrementable
-     * @param nombreUsuario Corresponde a la parte de Nombre en el formulario
-     * @param emailUsuario Corresponde a la parte de Email en el Fomrulario
-     * @param telefonoUsuario Corresponde a la parte de Telefono del Formulario
-     * @param ciudadUsuario Corresponde a la Parte de Ciudad del Formulario
-     * @param documentoUsuario Corresponde a la parte de No.Identificacion de Formulario
+     * Este toString es nada mas que para que me muestre el nombre del usuario en caso tal de necesitar mas informacion tambien se puede agregar
      */
-    public Usuario(String nombreUsuario, String emailUsuario, String telefonoUsuario, String ciudadUsuario, String documentoUsuario) {
-        this.nombreUsuario = nombreUsuario;
-        this.emailUsuario = emailUsuario;
-        this.telefonoUsuario = telefonoUsuario;
-        this.ciudadUsuario = ciudadUsuario;
-        this.documentoUsuario = documentoUsuario;
-    }
-
-
-    public Long getUsuaioId(){
-        return usuaioId;
-    }
-
-    public String getNombreUsuario() {
-        return nombreUsuario;
-    }
-
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
-    }
-
-    public String getEmailUsuario() {
-        return emailUsuario;
-    }
-
-    public void setEmailUsuario(String emailUsuario) {
-        this.emailUsuario = emailUsuario;
-    }
-
-    public String getTelefonoUsuario() {
-        return telefonoUsuario;
-    }
-
-    public void setTelefonoUsuario(String telefonoUsuario) {
-        this.telefonoUsuario = telefonoUsuario;
-    }
-
-    public String getCiudadUsuario() {
-        return ciudadUsuario;
-    }
-
-    public void setCiudadUsuario(String ciudadUsuario) {
-        this.ciudadUsuario = ciudadUsuario;
-    }
-
-    public String getDocumentoUsuario() {
-        return documentoUsuario;
-    }
-
-    public void setDocumentoUsuario(String documentoUsuario) {
-        this.documentoUsuario = documentoUsuario;
-    }
-
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer("Usuario{");
-        sb.append("nombreUsuario='").append(nombreUsuario).append('\'');
-        sb.append(", emailUsuario='").append(emailUsuario).append('\'');
-        sb.append(", telefonoUsuario='").append(telefonoUsuario).append('\'');
-        sb.append(", ciudadUsuario='").append(ciudadUsuario).append('\'');
-        sb.append(", documentoUsuario='").append(documentoUsuario).append('\'');
-        sb.append('}');
-        return sb.toString();
+        return new StringJoiner(", ", Usuario.class.getSimpleName() + "[", "]")
+                .add("nombreUsuario='" + nombreUsuario + "'")
+                .toString();
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Usuario)) return false;
-        Usuario usuario = (Usuario) o;
-        return Objects.equals(getUsuaioId(), usuario.getUsuaioId()) && Objects.equals(getNombreUsuario(), usuario.getNombreUsuario()) && Objects.equals(getEmailUsuario(), usuario.getEmailUsuario()) && Objects.equals(getTelefonoUsuario(), usuario.getTelefonoUsuario()) && Objects.equals(getCiudadUsuario(), usuario.getCiudadUsuario()) && Objects.equals(getDocumentoUsuario(), usuario.getDocumentoUsuario());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getUsuaioId(), getNombreUsuario(), getEmailUsuario(), getTelefonoUsuario(), getCiudadUsuario(), getDocumentoUsuario());
+    /**
+     * Este metodo añade consulta por consulta a el ususario ya que esta es una lista o coleccion.
+     * @param consulta Es de tipo Consulta
+     */
+    public void añadirConsulta(Consulta consulta){
+        consultas.add(consulta);
     }
 }
