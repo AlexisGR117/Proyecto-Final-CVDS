@@ -1,19 +1,75 @@
-/* reset on the showcase style*/
-body .ui-panelgrid .ui-panelgrid-cell {
-    background-color: transparent;
+.formulario {
+    width: 90%;
+    margin: 50px auto;
+    border-radius: 10px;
+    box-shadow: 0px 0px 3px 0px #E2E2E2;
 }
-/* example use of styles for your form */
-.my-heading-row {
-    background-color: var(--surface-c);
+
+.titulo-grupo {
     font-weight: bold;
 }
 
-.fila {
-    background-color: transparent;
+.titulo-formulario {
+    font-size: 20px;
+}
+
+.bordes {
+    background: 0;
+    border: 0 none;
+}
+
+.centrar-texto {
+    text-align: center;
 }
 
 .centrar {
     display: flex;
-    justify-content:center;
-    align-items:center
+    justify-content: center;
+    align-items: center;
 }
+
+.sin-borde .ui-datepicker {
+    border: none;
+}
+
+.ui-datascroller-content {
+    border: none !important;
+}
+
+.centrar-horizontal {
+    margin: 0 auto;
+}
+
+.ui-button.boton-activo {
+    background-color:#DBEEFD;
+    color: #2196F3;
+    border: 1px solid;
+    font-weight: bold;
+}
+
+button.botones-horario {
+    width: 200px;
+    height: 50px;
+    margin: 5px;
+}
+
+.firma {
+    width:400px;
+    height:200px;
+}
+
+button.botones-firma {
+    width: 190px !important;
+    height: 50px !important;
+    margin: 5px;
+}
+
+button.programar {
+    width: 400px !important;
+    height: 60px !important;
+    margin: 5px;
+}
+
+.error {
+    color: red;
+ }
