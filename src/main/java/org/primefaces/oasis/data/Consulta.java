@@ -47,11 +47,16 @@ public class Consulta {
 
     @Column(name = "ANO_CONSULTA")
     @NonNull private String anoConsulta;
+
     @Column(name = "HORA_CONSULTA")
     @NonNull private String horaConsulta;
 
     @Column(name = "COMPROBANTE_PAGO")
     @NonNull private File comprobandoPago;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
     /**
      * Constructor vacio
      */

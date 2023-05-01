@@ -24,7 +24,7 @@ import java.util.Calendar;
 @Component
 @ManagedBean(name = "usuarioDataBean")
 @ApplicationScope
-@Getter @Setter @NoArgsConstructor
+@Getter @Setter
 public class UsuarioDataBean implements Serializable {
     @Autowired
     UsuarioService usuarioService;
@@ -36,10 +36,15 @@ public class UsuarioDataBean implements Serializable {
     private String ciudad;
     private String noIdentificacion;
     private String dia;
+    private String mes;
     private String hora;
     private File comprobantePago;
     private String razonConsulta;
     private Calendar calendar; //No estoy seguro que me permita hacer lo que pienzo esto es un TO DO
+
+    public UsuarioDataBean(){
+        calendar = Calendar.getInstance();
+    }
 
     @Bean
     public CommandLineRunner usuarioActual() throws Exception{
@@ -47,8 +52,22 @@ public class UsuarioDataBean implements Serializable {
             usuarioService.addUsuario(new Usuario("Jeffer", "jeffer@mail","301238","Bogota","10238"));
             usuarioService.getAllUsuarios();
             usuarioService.deleteUsuario(1L);
+            restart();
         };
     }
+
+    public void restart(){
+        nombre = "";
+        email = "";
+        ciudad = "";
+        noIdentificacion = "";
+        dia= String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
+        mes= String.valueOf(calendar.get(Calendar.MONTH));
+        hora = String.valueOf(calendar.get(Calendar.HOUR_OF_DAY));
+        razonConsulta = "Razon generica";
+    }
+
+
 
 
 

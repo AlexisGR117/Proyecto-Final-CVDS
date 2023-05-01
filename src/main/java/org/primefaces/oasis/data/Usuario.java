@@ -2,6 +2,8 @@ package org.primefaces.oasis.data;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -30,6 +32,9 @@ public class Usuario {
 
     @Column(name = "IDENTIFICACION_USUARIO")
     private String documentoUsuario;
+
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private List<Consulta> consultas = new ArrayList<>();
 
     /**
      * Constructor vacio por temas de posibles fallos dentro de el tiempo de ejecucion
