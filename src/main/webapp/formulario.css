@@ -1,75 +1,73 @@
-.formulario {
-    width: 90%;
-    margin: 50px auto;
-    border-radius: 10px;
-    box-shadow: 0px 0px 3px 0px #E2E2E2;
+body {
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+  background-color: #edf0f5;
 }
 
-.titulo-grupo {
+.titulo {
+    font-size: 20px;
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold
+}
+
+#formulario {
+    width: 90%;
+    margin: 50px auto;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+    background-color: #ffffff;
+    color: #4f575b;
+}
+
+#formulario .titulo-grupo {
     font-weight: bold;
 }
 
-.titulo-formulario {
-    font-size: 20px;
-}
-
-.bordes {
-    background: 0;
-    border: 0 none;
-}
-
-.centrar-texto {
+#formulario .centrar-texto {
     text-align: center;
 }
 
-.centrar {
+#formulario .centrar {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.sin-borde .ui-datepicker {
+#formulario .ui-datepicker, #formulario .ui-datascroller-content {
     border: none;
 }
 
-.ui-datascroller-content {
-    border: none !important;
-}
-
-.centrar-horizontal {
+#formulario .centrar-horizontal {
     margin: 0 auto;
 }
 
-.ui-button.boton-activo {
+#formulario .ui-button.boton-activo {
     background-color:#DBEEFD;
     color: #2196F3;
     border: 1px solid;
     font-weight: bold;
 }
 
-button.botones-horario {
+#formulario button.botones-horario {
     width: 200px;
     height: 50px;
     margin: 5px;
 }
 
-.firma {
+#formulario .firma {
     width:400px;
     height:200px;
 }
 
-button.botones-firma {
-    width: 190px !important;
-    height: 50px !important;
+#formulario button.botones-firma {
+    width: 190px;
+    height: 50px;
     margin: 5px;
 }
 
-button.programar {
-    width: 400px !important;
-    height: 60px !important;
+#formulario button.programar {
+    width: 400px;
+    height: 60px;
     margin: 5px;
 }
-
-.error {
-    color: red;
- }
