@@ -60,9 +60,9 @@ public class Consulta {
      */
     public Consulta(){}
 
-    public Consulta(String razonConsulta, LocalDate fechaConsulta, String diaConsulta, String mesConsulta, String anoConsulta, String horaConsulta, Usuario usuario) {
+    public Consulta(String razonConsulta, LocalDate fechaConsulta, ConsultaId consultaid, Usuario usuario) {
         this.razonConsulta = razonConsulta;
-        id = new ConsultaId(anoConsulta, mesConsulta, diaConsulta, horaConsulta);
+        id = consultaid;
         this.usuario = usuario;
         this.fechaConsulta = fechaConsulta;
         setFechas();

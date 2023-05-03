@@ -3,6 +3,7 @@ package org.primefaces.oasis.form;
 
 import lombok.*;
 import org.primefaces.oasis.data.Consulta;
+import org.primefaces.oasis.data.ConsultaId;
 import org.primefaces.oasis.data.Usuario;
 import org.primefaces.oasis.repository.UsuarioRepository;
 import org.primefaces.oasis.service.ConsultaService;
@@ -37,6 +38,8 @@ public class UsuarioDataBean implements Serializable {
     private String email;
     private String ciudad;
     private String noIdentificacion;
+    private String telefono;
+    private String anoConsulta;
     private String dia;
     private String mes;
     private String hora;
@@ -71,11 +74,16 @@ public class UsuarioDataBean implements Serializable {
         dia= String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
         mes= String.valueOf(calendar.get(Calendar.MONTH));
         hora = String.valueOf(calendar.get(Calendar.HOUR_OF_DAY));
+        anoConsulta = String.valueOf(calendar.get(Calendar.YEAR));
         razonConsulta = "Razon generica";
     }
 
-
-
-
+    public void añadirUsuario() {
+        usuarioService.addUsuario(new Usuario(nombre,email,telefono,ciudad,noIdentificacion,firma));
+    }
+    public void añadirConsulta(){
+        ConsultaId consultaid1 = new ConsultaId(anoConsulta, mes,dia,hora);
+        //consultaService.addConsulta(new Consulta(razonConsulta, consultaid))
+    }
 
 }
