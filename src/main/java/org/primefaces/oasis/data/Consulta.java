@@ -20,17 +20,8 @@ import java.util.StringJoiner;
 @EqualsAndHashCode
 @Getter @Setter
 public class Consulta {
-    /**@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name= "ID_CONSULTA")
-    private Long idConsulta;
-    */
     @EmbeddedId
     private ConsultaId id;
-    /**
-    * @Column(name = "USUARIO_ID")
-    * private Usuario usuarioId;
-    */
     @Column(name = "RAZON_CONSULTA")
     private String razonConsulta;
 
