@@ -2,10 +2,8 @@ package org.primefaces.oasis.form;
 
 
 import lombok.*;
-import org.primefaces.oasis.data.Consulta;
-import org.primefaces.oasis.data.ConsultaId;
 import org.primefaces.oasis.data.Usuario;
-import org.primefaces.oasis.repository.UsuarioRepository;
+
 import org.primefaces.oasis.service.ConsultaService;
 import org.primefaces.oasis.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +16,7 @@ import javax.faces.bean.ManagedBean;
 import java.io.File;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.List;
 
@@ -35,21 +34,20 @@ public class UsuarioDataBean implements Serializable {
     ConsultaService consultaService;
 
     private String nombre;
+    private static final  int precio = 50;
+    private boolean seleccionado;
     private String email;
     private String ciudad;
     private String noIdentificacion;
     private String telefono;
-    private String anoConsulta;
-    private String dia;
-    private String mes;
+    private LocalDate fecha;
     private String hora;
     private File comprobantePago;
     private String razonConsulta;
     private String firma;
-    private Calendar calendar; //No estoy seguro que me permita hacer lo que pienzo esto es un TO DO
-
     public UsuarioDataBean(){
-        calendar = Calendar.getInstance();
+        fecha = LocalDate.now();
+        seleccionado = false;
     }
 
     @Bean
@@ -57,7 +55,7 @@ public class UsuarioDataBean implements Serializable {
         return args ->{
             Usuario usuario1 = new Usuario("Jeffer", "jeffer.correo@masil.com","301234058","Bogota","1005679","1102891630036719");
             LocalDate fechaGenerica = LocalDate.now();
-            usuario1.anadirConsulta(new Consulta("consulta", fechaGenerica, "1", "3", "2023", "23:00", usuario1));
+            //usuario1.anadirConsulta(new Consulta("consulta", fechaGenerica, "1", "3", "2023", "23:00", usuario1));
             usuarioService.addUsuario(usuario1);
             System.out.println("Usuario Creado......." + usuarioService.getUsuario(1L));
             usuarioService.getAllUsuarios();
@@ -71,10 +69,7 @@ public class UsuarioDataBean implements Serializable {
         email = "";
         ciudad = "";
         noIdentificacion = "";
-        dia= String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
-        mes= String.valueOf(calendar.get(Calendar.MONTH));
-        hora = String.valueOf(calendar.get(Calendar.HOUR_OF_DAY));
-        anoConsulta = String.valueOf(calendar.get(Calendar.YEAR));
+        seleccionado = false;
         razonConsulta = "Razon generica";
     }
 
@@ -82,8 +77,8 @@ public class UsuarioDataBean implements Serializable {
         usuarioService.addUsuario(new Usuario(nombre,email,telefono,ciudad,noIdentificacion,firma));
     }
     public void añadirConsulta(){
-        ConsultaId consultaid1 = new ConsultaId(anoConsulta, mes,dia,hora);
-        //consultaService.addConsulta(new Consulta(razonConsulta, consultaid))
+        //consultaService.addConsulta(new Consulta(razonConsulta, consultaid1,))
     }
+
 
 }

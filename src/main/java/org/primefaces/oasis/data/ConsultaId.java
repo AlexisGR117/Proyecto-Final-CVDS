@@ -7,21 +7,18 @@ import lombok.ToString;
 
 import javax.persistence.Embeddable;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @Embeddable
 @Getter @Setter @EqualsAndHashCode @ToString
 public class ConsultaId implements Serializable {
-    private String ano;
-    private String mes;
-    private String dia;
+    private LocalDate fecha;
     private String hora;
 
     public ConsultaId(){}
 
-    public ConsultaId(String ano, String mes, String dia, String hora) {
-        this.ano = ano;
-        this.mes = mes;
-        this.dia = dia;
+    public ConsultaId(LocalDate fecha, String hora) {
+        this.fecha = fecha;
         this.hora = hora;
     }
 }

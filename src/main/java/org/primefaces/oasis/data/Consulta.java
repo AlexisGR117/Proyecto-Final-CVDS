@@ -37,15 +37,6 @@ public class Consulta {
     @Column(name = "FECHA_CONSULTA")
     private LocalDate fechaConsulta;
 
-    @Column(name = "DIA_CONSULTA")
-    private String diaConsulta;
-
-    @Column(name= "MES_CONSULTA")
-    private String mesConsulta;
-
-    @Column(name = "ANO_CONSULTA")
-    private String anoConsulta;
-
     @Column(name = "HORA_CONSULTA")
     private String horaConsulta;
 
@@ -60,19 +51,12 @@ public class Consulta {
      */
     public Consulta(){}
 
-    public Consulta(String razonConsulta, LocalDate fechaConsulta, ConsultaId consultaid, Usuario usuario) {
+    public Consulta(String razonConsulta, ConsultaId consultaid, Usuario usuario) {
         this.razonConsulta = razonConsulta;
         id = consultaid;
         this.usuario = usuario;
-        this.fechaConsulta = fechaConsulta;
-        setFechas();
-    }
-
-    private  void setFechas(){
-        anoConsulta = id.getAno();
-        mesConsulta = id.getMes();
-        diaConsulta = id.getDia();
-        horaConsulta = id.getHora();
+        horaConsulta = consultaid.getHora();
+        fechaConsulta = consultaid.getFecha();
     }
 
     @Override

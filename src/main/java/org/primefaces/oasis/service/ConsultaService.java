@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ConsultaService implements Serializable {
@@ -19,7 +20,7 @@ public class ConsultaService implements Serializable {
     public Consulta addConsulta(Consulta consulta){
         return consultaRepository.save(consulta);
     }
-    public Consulta getConsulta(ConsultaId consultaId){
+    public Optional<Consulta> getConsulta(ConsultaId consultaId){
         return consultaRepository.findById(consultaId);
     }
     public List<Consulta> getAllConsultas(){
@@ -30,10 +31,11 @@ public class ConsultaService implements Serializable {
         if(consultaRepository.existsById(consulta.getId())){
             return consultaRepository.save(consulta);
         }
-
         return null;
     }
-    public void deleteConsulta(Long consultaId){
+    public void deleteConsulta(ConsultaId consultaId){
         consultaRepository.deleteById(consultaId);
     }
+
+
 }
