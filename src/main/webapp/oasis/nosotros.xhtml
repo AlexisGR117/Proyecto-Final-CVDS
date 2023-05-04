@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <link href="diseño.css" rel="stylesheet"/>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+        </f:facet>
+        <title>PrimeFaces Omega</title>
+    </h:head>
+
+    <h:body class="bodyp">
+        <div style="background-color:grey;">
+            <div style="background-color:transparent;">
+                <div class="card">
+                    <h:form>
+                        <p:menubar>
+                            <p:menuitem outcome="inicio" value="Inicio" icon="pi pi-home"/>
+                            <p:divider layout="vertical"/>
+                            <p:menuitem outcome="nosotros" value="Nosotros" icon="pi pi-user"/>
+                
+                            <p:divider layout="vertical"/>
+                            <p:submenu label="servicios" value="Servicios"  icon="pi pi-fw pi-book">
+                                <p:menuitem value="Perdones"/>
+                                <p:menuitem value="Convertirse en un ciudadano americano"/>
+                                <p:menuitem value="Tarjeta verde a través de una oferta de empleo"/>
+                                <p:menuitem value="Visa de prometido(K1)"/>
+                                <p:menuitem value="Peticiones familiares"/>
+                                <p:menuitem value="Permisos de trabajo"/>
+                                <p:menuitem value="Ajuste de status"/>
+                                <p:menuitem value="Test"/>
+                            </p:submenu>
+                
+                            <p:divider layout="vertical"/>
+                
+                            <p:menuitem outcome="contacto" value="Contactanos" icon="pi pi-phone"/>
+                
+                            <f:facet name="options">
+                                <p:button outcome="login" value="Log in" icon="pi pi-fw pi-sign-out" styleClass="ui-button-info"/>
+                            </f:facet>
+                        </p:menubar>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+        <div class="divp">
+            <div class="divnosotros">
+                <h1 style="font-size: 50px;">Historia</h1><br></br><br></br>
+                <p class="fontcontacto1">Hispanic American Legal Services, Ltd esta dirigido por la abogada Liliana P Jones- Muñoz. La abogada Liliana Jones cuenta con más de 20 años de experiencia profesional como abogada. Liliana, obtuvo en Colombia su título de abogada donde fue una de las alumnas más destacadas durante su carrera, siendo merecedora de honores académicos. La abogada Liliana Jones-Muñoz también posee una Especialización en Alta Gerencia y en Derecho Comercial en Colombia.</p><br></br>
+                <p class="fontcontacto1">Durante 10 años fue la directora del departamento legal de un importante conglomerado comercial ubicado en el Eje Cafetero-Colombia. Su valiosa experiencia profesional, asi como el conocimiento del Derecho Colombiano y Americano le ha permitido realizar una transición en su carrera, enfocándose en la comunidad Hispana domiciliada en los EEUU y en la población Latinoamérica, ofreciendo asesoramiento legal en Derecho Inmigratorio en las áreas de Inmigración basada en lazos familiares y de negocios.</p><br></br>
+                <p class="fontcontacto1">La Abogada Liliana Jones, tiene licencia en el estado de Illinois y en la Republica de Colombia. En el año 2014 fundo HISPANIC AMERICAN LEGAL SERVICES, LTD con el objetivo de ofrecer sus servicio a la comunidad hispana residente en Los Estados Unidos.</p><br></br>
+                <p class="fontcontacto1">Como inmigrante Liliana, ha experimentado de principio a fin el proceso para ser residente y ciudadano de este país, por esta razón unido a su experiencia como abogada, profesionalismo y capacitación la abogada Liliana Jones puede entender sus necesidades no solo como abogada si no también lo que se siente ser inmigrante en US.</p><br></br>
+            </div>
+        </div>       
+            <h:outputStylesheet name="css/primeicons.css" library="omega-layout"/>
+            <h:outputStylesheet name="css/primeflex.min.css" library="omega-layout"/>
+            <h:outputStylesheet name="css/layout-#{guestPreferences.layout}.css" library="omega-layout"/>
+           
+    
+            
+        </h:body>
+    
+    </html>
