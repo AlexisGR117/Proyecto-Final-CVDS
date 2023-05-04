@@ -13,14 +13,13 @@ import javax.persistence.TypedQuery;
 import javax.swing.text.html.parser.Entity;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class ConsultaService implements Serializable {
-    @PersistenceContext
-    private EntityManager entityManager;
     private final ConsultaRepository consultaRepository;
     @Autowired
     public ConsultaService(ConsultaRepository consultaRepository){
@@ -70,5 +69,20 @@ public class ConsultaService implements Serializable {
             }
         }
         return consultasNuevas;
+    }
+    public ArrayList<String> hourSetter(int limiteSuperior, int limiteInferior, int intervaloMinutos){
+        ArrayList<String> horas = new ArrayList<>();
+        LocalTime clock = LocalTime.of(limiteInferior,0,0);
+        horas.add(clock.toString());
+        if (limiteSuperior <= limiteInferior){
+            return null;
+        }
+        int i = (limiteInferior * 100) + intervaloMinutos;
+        while (i < limiteSuperior*100){
+            clock = clock.plusMinutes(intervaloMinutos);
+            horas.add(clock.toString());
+            i += intervaloMinutos;
+        }
+        return horas;
     }
 }

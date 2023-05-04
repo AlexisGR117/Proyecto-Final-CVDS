@@ -17,6 +17,7 @@ import java.io.File;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -36,6 +37,9 @@ public class UsuarioDataBean implements Serializable {
     private String nombre;
     private static final  int precio = 50;
     private boolean seleccionado;
+
+    private static final int intervalo = 30;
+    private ArrayList<String> horasDeDia;
     private String email;
     private String ciudad;
     private String noIdentificacion;
@@ -73,11 +77,17 @@ public class UsuarioDataBean implements Serializable {
         razonConsulta = "Razon generica";
     }
 
-    public void añadirUsuario() {
+    public void anadirUsuario() {
         usuarioService.addUsuario(new Usuario(nombre,email,telefono,ciudad,noIdentificacion,firma));
     }
-    public void añadirConsulta(){
+    public void anadirConsulta(){
         //consultaService.addConsulta(new Consulta(razonConsulta, consultaid1,))
+    }
+    public void settingHours(){
+        ArrayList<String> h = consultaService.hourSetter(17,7,30);
+        if( h != null){
+            horasDeDia = h;
+        }
     }
 
 

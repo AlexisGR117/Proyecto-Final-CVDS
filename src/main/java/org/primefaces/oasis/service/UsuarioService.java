@@ -28,7 +28,6 @@ public class UsuarioService{
         if(usuarioRepository.existsById(usuario.getUsuaioId())) {
             return usuarioRepository.save(usuario);
         }
-
         return null;
     }
     public void deleteUsuario(Long usuarioId){

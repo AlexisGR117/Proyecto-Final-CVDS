@@ -40,5 +40,4 @@ public class usuarioServiceTest {
         List<Usuario> usuarios = usuarioService.getAllUsuarios();
         assertEquals(3, usuarios.size());
     }
-
 }
