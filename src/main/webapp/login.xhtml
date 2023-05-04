@@ -10,19 +10,20 @@
         <link rel="stylesheet" href="login.css"/>
     </h:head>
     <h:body id="contendor">
-        <form id="login">
+        <p:growl id="mensaje" showDetail="true"/>
+        <h:form id="login">
             <span class="titulo">Calendario de Consultas</span>
             <div class="ui-fluid">
                 <div class="padding">
-                    <p:inputText value="#{adminBean.adminName}" placeholder="Username" />
+                    <p:inputText value="#{admiBean.adminNombre}" placeholder="Username" />
                 </div>
                 <div class="padding">
-                    <p:password value="#{adminBean.password}" placeholder="Password" feedback="false"/>
+                    <p:password value="#{admiBean.contrasena}" placeholder="Password" feedback="false"/>
                 </div>
                 <div class="padding">
-                    <p:button outcome="dashboard" value="Sign In" icon="pi pi-user" />
+                    <p:commandButton type="submit" action="#{admiBean.login}" value="Sign In" icon="pi pi-user" update="mensaje" />
                 </div>
             </div>
-        </form>
+        </h:form>
     </h:body>
 </html>

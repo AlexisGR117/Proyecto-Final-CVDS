@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * Clase que se entiende como la creacion de la entidad en la base de datos
@@ -87,4 +86,5 @@ public class Admin{
                 ", password='" + password + '\'' +
                 '}';
     }
+
 }

@@ -12,8 +12,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * Hecho por: Daniel Santiago Gomez Zabala
  */
 @Repository
-public interface AdminRepository extends JpaRepository<Admin, Long>{
-    boolean existsById(String propiedadId);
-
-    Admin findById(String propiedadId);
+public interface AdminRepository extends JpaRepository<Admin, String>{
 }

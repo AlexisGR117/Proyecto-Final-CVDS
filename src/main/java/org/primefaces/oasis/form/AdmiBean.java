@@ -14,7 +14,6 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Clase que permite tener el usuario como objeto además de conectar y añadir usuarios a la base de datos
@@ -24,14 +23,14 @@ import java.util.Optional;
  * fecha de modificación:
  */
 @Component
-@ManagedBean(name = "userBean")
+@ManagedBean(name = "admiBean")
 @SessionScoped
 public class AdmiBean  implements Serializable {
     private final AdminRepository userRepository;
     @Autowired
     AdminService AdminService;
-    private String AdminName;
-    private String password;
+    private String adminNombre;
+    private String contrasena;
     private List<Admin> admins;
 
     /**
@@ -55,48 +54,46 @@ public class AdmiBean  implements Serializable {
      * Método que permite obtener el nombre de usuario
      * @return
      */
-    public String getAdminName() {
-        return AdminName;
+    public String getAdminNombre() {
+        return adminNombre;
     }
 
     /**
      * Método que permite añadir a un nuevo usuario
-     * @param user
+     * @param adminNombre
      */
-    public void seAdminName(String user) {
-        this.AdminName = user;
+    public void setAdminNombre(String adminNombre) {
+        this.adminNombre = adminNombre;
     }
 
     /**
      * Método que permite obtener la clave del usuario
      * @return
      */
-    public String getPassword() {
-        return password;
+    public String getContrasena() {
+        return contrasena;
     }
 
     /**
      * Método que permite añadir una nueva clave a determinado usuario
-     * @param password
+     * @param contrasena
      */
-    public void setPassword(String password) {
-        this.password = password;
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 
     /**
-     * Método que valida que el usuario exista en la base de datos y permitE el acceso
-     * NOTA: SE DEBE COLOCAR A DONDE SE VA DIRIGIR DESPUES DE QUE SE VALIDE EL ACCESO
+     * Método que valida que el usuario exista en la base de datos y permitE el acceso desde el service
      * @return
      */
     public String login() {
-        Admin usuario = userRepository.findById(AdminName);
-        if (usuario == null || !usuario.getPassword().equals(password)) {
-            FacesContext.getCurrentInstance().addMessage("@all", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Credenciales erroneas", null));
-            return null;
-        } else {
-            return "welcome.xhtml";
+        if(AdminService.login(adminNombre, contrasena)){
+            return "dashboard.xhtml";
         }
+        FacesContext.getCurrentInstance().addMessage("@all", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Credenciales erroneas", null));
+        return null;
     }
+
 
     /**
      * Método donde se puede añadir usuarios a la base de datos y además los muestra en consola
