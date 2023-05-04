@@ -1,14 +1,14 @@
 package org.primefaces.oasis.controllers;
 
-import org.primefaces.oasis.model.User;
+import org.primefaces.oasis.model.Admin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
-import org.primefaces.oasis.repositories.UserRepository;
-import org.primefaces.oasis.services.UserService;
-import org.primefaces.oasis.model.User;
+import org.primefaces.oasis.repositories.AdminRepository;
+import org.primefaces.oasis.services.AdminService;
+import org.primefaces.oasis.model.Admin;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -27,19 +27,19 @@ import java.util.List;
 @Component
 @ManagedBean(name = "userBean")
 @SessionScoped
-public class UserBean  implements Serializable {
-    private final UserRepository userRepository;
+public class AdmiBean  implements Serializable {
+    private final AdminRepository userRepository;
     @Autowired
-    UserService userService;
-    private String userName;
+    AdminService AdminService;
+    private String AdminName;
     private String password;
-    private List<User> usuarios;
+    private List<Admin> admins;
 
     /**
      * Constructor de la clase UserBean
      * @param userRepository
      */
-    public UserBean(UserRepository userRepository){
+    public AdmiBean(AdminRepository userRepository){
         this.userRepository = userRepository;
     }
 
@@ -47,25 +47,25 @@ public class UserBean  implements Serializable {
      * Método que permite obtener la lista de usuarios registrados en la base de datos
      * @return
      */
-    public List<User> getUsuarios(){
-        this.usuarios = userService.getAllUsuario();
-        return usuarios;
+    public List<Admin> getAdmins(){
+        this.admins = AdminService.getAllUsuario();
+        return admins;
     }
 
     /**
      * Método que permite obtener el nombre de usuario
      * @return
      */
-    public String getUserName() {
-        return userName;
+    public String getAdminName() {
+        return AdminName;
     }
 
     /**
      * Método que permite añadir a un nuevo usuario
      * @param user
      */
-    public void setUserName(String user) {
-        this.userName = user;
+    public void seAdminName(String user) {
+        this.AdminName = user;
     }
 
     /**
@@ -90,7 +90,7 @@ public class UserBean  implements Serializable {
      * @return
      */
     public String login() {
-        User usuario = userRepository.findById(userName);
+        Admin usuario = userRepository.findById(AdminName);
         if (usuario == null || !usuario.getPassword().equals(password)) {
             FacesContext.getCurrentInstance().addMessage("@all", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Credenciales erroneas", null));
             return null;
@@ -107,8 +107,8 @@ public class UserBean  implements Serializable {
     @Bean
     public CommandLineRunner currentUser() throws Exception{
         return args -> {
-            userService.addUsuario(new User("admin", "admin"));
-            userService.getAllUsuario().forEach(System.out::println);
+            AdminService.addUsuario(new Admin("admin", "admin"));
+            AdminService.getAllUsuario().forEach(System.out::println);
         };
     }
 }

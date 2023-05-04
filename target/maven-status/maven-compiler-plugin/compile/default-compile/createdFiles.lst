@@ -4,7 +4,6 @@ org\primefaces\omega\domain\InventoryStatus.class
 org\primefaces\omega\domain\Photo.class
 org\primefaces\omega\filter\CharacterEncodingFilter.class
 org\primefaces\omega\view\FileDemoView.class
-org\primefaces\oasis\repositories\UserRepository.class
 org\primefaces\omega\view\PrimeIconsView$Icon.class
 org\primefaces\omega\view\InvoiceDemoView.class
 org\primefaces\omega\blockviewer\BlockViewer.class
@@ -13,7 +12,6 @@ org\primefaces\omega\domain\Representative.class
 org\primefaces\omega\view\ChartDemoView.class
 org\primefaces\omega\domain\Product.class
 org\primefaces\omega\view\OverlayDemoView.class
-org\primefaces\oasis\controllers\UserBean.class
 org\primefaces\omega\view\MediaDemoView.class
 org\primefaces\omega\service\DocumentService.class
 org\primefaces\omega\domain\CustomerStatus.class
@@ -23,8 +21,6 @@ org\primefaces\omega\component\OmegaMenuRenderer.class
 org\primefaces\omega\view\GuestPreferences.class
 org\primefaces\omega\view\ListDemoView.class
 org\primefaces\omega\view\PrimeIconsView.class
-org\primefaces\oasis\model\User.class
-org\primefaces\oasis\services\UserService.class
 org\primefaces\omega\blockviewer\BlockViewer$PropertyKeys.class
 org\primefaces\omega\view\FreeBlocksDemoView.class
 org\primefaces\omega\view\MessageDemoView.class

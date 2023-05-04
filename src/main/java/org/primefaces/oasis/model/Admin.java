@@ -13,7 +13,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "USUARIOS")
-public class User{
+public class Admin{
 
     @Id
     @Column(name = "USER")
@@ -26,12 +26,12 @@ public class User{
      * @param id
      * @param password
      */
-    public User(String id, String password) {
+    public Admin(String id, String password) {
         this.id = id;
         this.password = password;
     }
 
-    public User() {
+    public Admin() {
     }
 
     /**
@@ -70,7 +70,7 @@ public class User{
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User usuario = (User) o;
+        Admin usuario = (Admin) o;
         return id.equals(usuario.id) && password.equals(usuario.password);
     }
 

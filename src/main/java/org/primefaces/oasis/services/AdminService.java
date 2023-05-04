@@ -3,8 +3,8 @@ package org.primefaces.oasis.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import org.primefaces.oasis.repositories.UserRepository;
-import org.primefaces.oasis.model.User;
+import org.primefaces.oasis.repositories.AdminRepository;
+import org.primefaces.oasis.model.Admin;
 
 import java.util.List;
 
@@ -15,22 +15,22 @@ import java.util.List;
  * Hecho por: Daniel Santiago Gomez Zabala
  */
 @Service
-public class UserService {
-    private final UserRepository userRepository;
+public class AdminService {
+    private final AdminRepository userRepository;
     @Autowired
-    public UserService(UserRepository usuarioRepository){
+    public AdminService(AdminRepository usuarioRepository){
         this.userRepository = usuarioRepository;
     }
-    public User addUsuario(User usuario){
+    public Admin addUsuario(Admin usuario){
         return userRepository.save(usuario);
     }
-    public User getUsuario (String usuarioId){
+    public Admin getUsuario (String usuarioId){
         return userRepository.findById(usuarioId);
     }
-    public List<User> getAllUsuario(){
+    public List<Admin> getAllUsuario(){
         return userRepository.findAll();
     }
-    public User updateUsuario(User usuario){
+    public Admin updateUsuario(Admin usuario){
         if(userRepository.existsById(usuario.getId())){
             return userRepository.save(usuario);
         }

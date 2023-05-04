@@ -3,7 +3,7 @@ package org.primefaces.oasis.repositories;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import org.primefaces.oasis.model.User;
+import org.primefaces.oasis.model.Admin;
 
 
 /**
@@ -13,8 +13,8 @@ import org.primefaces.oasis.model.User;
  * Hecho por: Daniel Santiago Gomez Zabala
  */
 @Repository
-public interface UserRepository extends JpaRepository<User, Long>{
+public interface AdminRepository extends JpaRepository<Admin, Long>{
     boolean existsById(String propiedadId);
 
-    User findById(String propiedadId);
+    Admin findById(String propiedadId);
 }
