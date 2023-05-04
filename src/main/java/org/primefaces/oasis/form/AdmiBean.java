@@ -1,14 +1,12 @@
-package org.primefaces.oasis.controllers;
+package org.primefaces.oasis.form;
 
-import org.primefaces.oasis.model.Admin;
+import org.primefaces.oasis.data.Admin;
+import org.primefaces.oasis.repository.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
-
-import org.primefaces.oasis.repositories.AdminRepository;
 import org.primefaces.oasis.services.AdminService;
-import org.primefaces.oasis.model.Admin;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -16,6 +14,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Clase que permite tener el usuario como objeto además de conectar y añadir usuarios a la base de datos

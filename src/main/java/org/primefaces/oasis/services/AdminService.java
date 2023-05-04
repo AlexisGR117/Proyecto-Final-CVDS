@@ -2,9 +2,8 @@ package org.primefaces.oasis.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import org.primefaces.oasis.repositories.AdminRepository;
-import org.primefaces.oasis.model.Admin;
+import org.primefaces.oasis.data.Admin;
+import org.primefaces.oasis.repository.AdminRepository;
 
 import java.util.List;
 

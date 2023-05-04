@@ -1,9 +1,8 @@
-package org.primefaces.oasis.repositories;
+package org.primefaces.oasis.repository;
 
 import org.springframework.stereotype.Repository;
+import org.primefaces.oasis.data.Admin;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import org.primefaces.oasis.model.Admin;
 
 
 /**

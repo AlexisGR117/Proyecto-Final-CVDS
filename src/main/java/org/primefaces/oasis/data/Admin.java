@@ -1,10 +1,11 @@
-package org.primefaces.oasis.model;
+package org.primefaces.oasis.data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Clase que se entiende como la creacion de la entidad en la base de datos
@@ -12,7 +13,7 @@ import java.util.Objects;
  * Hecho por: Daniel Santiago Gomez Zabala
  */
 @Entity
-@Table(name = "USUARIOS")
+@Table(name = "ADMINISTRADORES")
 public class Admin{
 
     @Id
