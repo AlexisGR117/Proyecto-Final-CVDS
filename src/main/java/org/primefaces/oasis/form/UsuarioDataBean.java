@@ -36,6 +36,7 @@ public class UsuarioDataBean implements Serializable {
 
     private String nombre;
     private static final  int precio = 50;
+    private ArrayList<Usuario> usuariosRegistrados;
     private boolean seleccionado;
 
     private static final int intervalo = 30;
@@ -52,6 +53,7 @@ public class UsuarioDataBean implements Serializable {
     public UsuarioDataBean(){
         fecha = LocalDate.now();
         seleccionado = false;
+        usuariosRegistrados = new ArrayList<>();
     }
 
     @Bean
@@ -81,13 +83,10 @@ public class UsuarioDataBean implements Serializable {
         usuarioService.addUsuario(new Usuario(nombre,email,telefono,ciudad,noIdentificacion,firma));
     }
     public void anadirConsulta(){
-        //consultaService.addConsulta(new Consulta(razonConsulta, consultaid1,))
+
     }
     public void settingHours(){
-        ArrayList<String> h = consultaService.hourSetter(17,7,30);
-        if( h != null){
-            horasDeDia = h;
-        }
+        consultaService.getConsultasFecha(fecha);
     }
 
 

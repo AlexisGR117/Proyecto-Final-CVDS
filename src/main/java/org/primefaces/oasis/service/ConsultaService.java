@@ -1,6 +1,5 @@
 package org.primefaces.oasis.service;
 
-import jdk.vm.ci.meta.Local;
 import org.primefaces.oasis.data.Consulta;
 import org.primefaces.oasis.data.ConsultaId;
 import org.primefaces.oasis.repository.ConsultaRepository;
@@ -20,6 +19,9 @@ import java.util.Optional;
 
 @Service
 public class ConsultaService implements Serializable {
+    private static final int limiteInferior = 7;
+    private static final int limiteSuperior = 15;
+    private static final int intervaloMinutos = 30;
     private final ConsultaRepository consultaRepository;
     @Autowired
     public ConsultaService(ConsultaRepository consultaRepository){
@@ -50,7 +52,7 @@ public class ConsultaService implements Serializable {
      * @param fecha es de tipo LocalDate y es la fecha que me ingresan que quieran consultar
      * @return un listado con las consultas de esa fecha
      */
-    public List<Consulta> getConsultasFecha(LocalDate fecha){
+    public List<String> getConsultasFecha(LocalDate fecha){
         List<Consulta> consultas = getAllConsultas();
         return(validator(consultas, fecha));
     }
@@ -61,26 +63,26 @@ public class ConsultaService implements Serializable {
      * @param fecha Fecha dada para comparar
      * @return Listado con las consultas con la fecha correcto.
      */
-    private List<Consulta> validator(List<Consulta> consultas, LocalDate fecha){
-        List<Consulta> consultasNuevas = new ArrayList<>();
+    private List<String> validator(List<Consulta> consultas, LocalDate fecha){
+        List<String> horasNuevas = new ArrayList<>();
         for (Consulta i : consultas){
             if(i.getId().getFecha().equals(fecha)) {
-                consultasNuevas.add(i);
+                horasNuevas.add(i.getId().getHora().toString());
             }
         }
-        return consultasNuevas;
+        List<String> horasPosibles = horaSetter(horasNuevas);
+        return horasPosibles;
     }
-    public ArrayList<String> hourSetter(int limiteSuperior, int limiteInferior, int intervaloMinutos){
-        ArrayList<String> horas = new ArrayList<>();
+    private List<String> horaSetter(List<String> valoresPosibles){
+        List<String> horas = new ArrayList<>();
         LocalTime clock = LocalTime.of(limiteInferior,0,0);
         horas.add(clock.toString());
-        if (limiteSuperior <= limiteInferior){
-            return null;
-        }
         int i = (limiteInferior * 100) + intervaloMinutos;
         while (i < limiteSuperior*100){
             clock = clock.plusMinutes(intervaloMinutos);
-            horas.add(clock.toString());
+            if(!valoresPosibles.contains(clock.toString())){
+                horas.add(clock.toString());
+            }
             i += intervaloMinutos;
         }
         return horas;

@@ -8,16 +8,17 @@ import lombok.ToString;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Embeddable
 @Getter @Setter @EqualsAndHashCode @ToString
 public class ConsultaId implements Serializable {
     private LocalDate fecha;
-    private String hora;
+    private LocalTime hora;
 
     public ConsultaId(){}
 
-    public ConsultaId(LocalDate fecha, String hora) {
+    public ConsultaId(LocalDate fecha, LocalTime hora) {
         this.fecha = fecha;
         this.hora = hora;
     }

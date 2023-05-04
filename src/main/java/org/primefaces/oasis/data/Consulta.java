@@ -25,15 +25,11 @@ public class Consulta {
     @Column(name = "RAZON_CONSULTA")
     private String razonConsulta;
 
-    @Column(name = "FECHA_CONSULTA")
-    private LocalDate fechaConsulta;
-
-    @Column(name = "HORA_CONSULTA")
-    private String horaConsulta;
-
     @Column(name = "COMPROBANTE_PAGO")
     private File comprobandoPago;
 
+    @Column(name = "ESTADO_CONSULTA")
+    private String estadoConsulta;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
@@ -46,8 +42,7 @@ public class Consulta {
         this.razonConsulta = razonConsulta;
         id = consultaid;
         this.usuario = usuario;
-        horaConsulta = consultaid.getHora();
-        fechaConsulta = consultaid.getFecha();
+        estadoConsulta = "AGENDADO";
     }
 
     @Override
