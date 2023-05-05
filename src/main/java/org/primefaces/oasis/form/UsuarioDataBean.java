@@ -84,9 +84,6 @@ public class UsuarioDataBean implements Serializable {
     public void anadirUsuario() {
         usuarioService.addUsuario(new Usuario(nombre,email,telefono,ciudad,noIdentificacion,firma));
     }
-    public void anadirConsulta(){
-
-    }
     public void settingHours(){
         consultaService.getConsultasFecha(fecha);
     }
