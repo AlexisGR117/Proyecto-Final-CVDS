@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="OASIS%20Project" />
+        <module name="prj-final" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
