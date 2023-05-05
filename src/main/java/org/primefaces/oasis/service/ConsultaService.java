@@ -70,8 +70,7 @@ public class ConsultaService implements Serializable {
                 horasNuevas.add(i.getId().getHora().toString());
             }
         }
-        List<String> horasPosibles = horaSetter(horasNuevas);
-        return horasPosibles;
+        return horaSetter(horasNuevas);
     }
     private List<String> horaSetter(List<String> valoresPosibles){
         List<String> horas = new ArrayList<>();
@@ -87,4 +86,5 @@ public class ConsultaService implements Serializable {
         }
         return horas;
     }
+
 }
