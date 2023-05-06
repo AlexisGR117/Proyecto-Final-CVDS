@@ -2,11 +2,11 @@ package org.primefaces.oasis.form;
 
 import org.primefaces.oasis.data.Admin;
 import org.primefaces.oasis.repository.AdminRepository;
+import org.primefaces.oasis.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
-import org.primefaces.oasis.services.AdminService;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -46,7 +46,7 @@ public class AdmiBean  implements Serializable {
      * @return
      */
     public List<Admin> getAdmins(){
-        this.admins = AdminService.getAllUsuario();
+        this.admins = AdminService.getAllAdmin();
         return admins;
     }
 
@@ -103,8 +103,8 @@ public class AdmiBean  implements Serializable {
     @Bean
     public CommandLineRunner currentUser() throws Exception{
         return args -> {
-            AdminService.addUsuario(new Admin("admin", "admin"));
-            AdminService.getAllUsuario().forEach(System.out::println);
+            AdminService.addAdmin(new Admin("admin", "admin"));
+            AdminService.getAllAdmin().forEach(System.out::println);
         };
     }
 }

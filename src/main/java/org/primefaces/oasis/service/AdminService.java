@@ -1,4 +1,4 @@
-package org.primefaces.oasis.services;
+package org.primefaces.oasis.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,7 +33,7 @@ public class AdminService {
      * @param usuario Usuario que se quiere agregar.
      * @return El usuario que se agregó a la base de datos.
      */
-    public Admin addUsuario(Admin usuario){
+    public Admin addAdmin(Admin usuario){
         return userRepository.save(usuario);
     }
 
@@ -42,7 +42,7 @@ public class AdminService {
      * @param usuarioId Cadena con el nombre del usuario.
      * @return El usuario que tiene el nombre dado.
      */
-    public Admin getUsuario (String usuarioId){
+    public Admin getAdmin (String usuarioId){
         Admin admin;
         try {
             admin = userRepository.findById(usuarioId).get();
@@ -56,7 +56,7 @@ public class AdminService {
      * Da todos los usuarios que están en la base de datos.
      * @return Lista con los usuarios disponibles.
      */
-    public List<Admin> getAllUsuario(){
+    public List<Admin> getAllAdmin(){
         return userRepository.findAll();
     }
     
@@ -65,7 +65,7 @@ public class AdminService {
      * @param usuario Usuario que se quiere actualizar.
      * @return El nuevo usuario actualizado.
      */
-    public Admin updateUsuario(Admin usuario){
+    public Admin updateAdmin(Admin usuario){
         if(userRepository.existsById(usuario.getId())){
             return userRepository.save(usuario);
         }
@@ -76,7 +76,7 @@ public class AdminService {
      * Elimina un usuario de la base de datos.
      * @param usuarioId Nombre del usuario.
      */
-    public void deleteUsuario(String usuarioId){
+    public void deleteAdmin(String usuarioId){
         userRepository.deleteById(usuarioId);
     }
 
@@ -86,7 +86,7 @@ public class AdminService {
      * @return
      */
     public Boolean login(String nombre, String contrasena) {
-        Admin usuario = getUsuario(nombre);
+        Admin usuario = getAdmin(nombre);
         if (usuario == null || !usuario.getPassword().equals(contrasena)) {
             return false;
         } else {
