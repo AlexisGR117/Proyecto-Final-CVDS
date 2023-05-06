@@ -31,7 +31,7 @@ public class Consulta {
     @Column(name = "ESTADO_CONSULTA")
     private String estadoConsulta;
     
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
     /**
@@ -43,6 +43,7 @@ public class Consulta {
         this.razonConsulta = razonConsulta;
         id = consultaid;
         this.usuario = usuario;
+        this.estadoConsulta = "Agendado";
     }
 
     

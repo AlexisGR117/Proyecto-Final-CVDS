@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      lang="es">
+    <h:head>
+        <title>Consultas</title>
+        <link rel="stylesheet" href="consultas.css"/>
+    </h:head>
+    <h:body>
+        <p:growl id="mensaje" showDetail="true"/>
+        <h:form id="consultas">
+            <p:schedule id="schedule" value="#{calendarioBean.modelo}" widgetVar="myschedule"
+                        timeZone="#{calendarioBean.severTimeZone}" clientTimeZone="#{calendarioBean.severTimeZone}">
+                <p:ajax event="eventSelect" listener="#{calendarioBean.onEventSelect}" update="eventDetails"
+                        oncomplete="PF('eventDialog').show();"/>
+            </p:schedule>
+
+            <p:dialog widgetVar="eventDialog" header="Información de la Consulta" minHeight="40" height="600"
+                      width="800" showEffect="fade" minimizable="true" maximizable="true" hideEffect="fade">
+                <p:panelGrid id="eventDetails" columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+                             layout="grid" class="ui-fluid">
+                    <p:row class="titulo-grupo">
+                        <p:column class="ui-grid-col-12">
+                            <p:divider align="left">
+                                <div class="inline-flex align-items-center">
+                                    <i class="pi pi-user mr-2"/>
+                                    <h:outputText value=" Información del Usuario"/>
+                                </div>
+                            </p:divider>
+                        </p:column>
+                    </p:row>
+                    <p:outputLabel for="nombre" value="Nombre: "/>
+                    <p:outputLabel id="nombre" value="#{calendarioBean.consulta.usuario.nombreUsuario}"/>
+                    <p:outputLabel for="correo" value="Correo"/>
+                    <p:outputLabel id="correo" value="#{calendarioBean.consulta.usuario.emailUsuario}"/>
+                    <p:outputLabel for="telefono" value="Teléfono"/>
+                    <p:outputLabel id="telefono" value="#{calendarioBean.consulta.usuario.telefonoUsuario}"/>
+                    <p:outputLabel for="ciudad" value="Ciudad"/>
+                    <p:outputLabel id="ciudad" value="#{calendarioBean.consulta.usuario.ciudadUsuario}"/>
+                    <p:outputLabel for="numero" value="Número de Identificación"/>
+                    <p:outputLabel id="numero" value="#{calendarioBean.consulta.usuario.documentoUsuario}"/>
+                    <p:row class="titulo-grupo">
+                        <p:column class="ui-grid-col-12">
+                            <p:divider align="left">
+                                <div class="inline-flex align-items-center">
+                                    <i class="pi pi-briefcase mr-2"/>
+                                    <h:outputText value=" Información de la Consulta"/>
+                                </div>
+                            </p:divider>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column class="ui-grid-col-12">
+                            <p:outputLabel for="razon" value="Razón de la Consulta"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column class="ui-grid-col-12">
+                            <p:outputLabel id="razon" value="#{calendarioBean.consulta.razonConsulta}"/>
+                        </p:column>
+                    </p:row>
+                    <p:row class="centrar-texto">
+                        <p:column class="ui-grid-col-6">
+                            <p:outputLabel value="Fecha de la consulta"/>
+                            <br/>
+                            <p:outputLabel value="#{calendarioBean.consulta.id.fecha.toString()}"/>
+                        </p:column>
+                        <p:column class="ui-grid-col-1">
+                            <p:divider layout="vertical"/>
+                        </p:column>
+                        <p:column class="ui-grid-col-6">
+                            <p:outputLabel id="title" value="Hora de la consulta"/>
+                            <br/>
+                            <p:outputLabel value="#{calendarioBean.consulta.id.hora.toString()}"/>
+                        </p:column>
+                    </p:row>
+                    <p:row class="titulo-grupo">
+                        <p:column class="ui-grid-col-12">
+                            <p:divider align="left">
+                                <div class="inline-flex align-items-center">
+                                    <i class="pi pi-money-bill mr-2"/>
+                                    <p:outputLabel value=" Pago"/>
+                                </div>
+                            </p:divider>
+                        </p:column>
+                    </p:row>
+                    <p:row class="centrar-texto">
+                        <p:column class="ui-grid-col-12">
+                            <p:outputLabel value="Su Firma" />
+                            <br/>
+                            <p:outputPanel id="output">
+                                <p:signature class="firma" readonly="true" value="#{calendarioBean.consulta.usuario.firmaUsuario}"
+                                             backgroundColor="#eaeaea" color="#03a9f4"/>
+                            </p:outputPanel>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column class="ui-grid-col-12">
+                            <p:outputLabel value="Comprobante de Pago"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column class="ui-grid-col-12">
+                            <p:fileUpload listener="#{calendarioBean.comprobantePago}" mode="advanced" dragDropSupport="true"
+                                          update="mensaje" sizeLimit="1000000" fileLimit="3" allowTypes="/(\.|\/)(pdf|jpe?g|png)$/"
+                                          validateContentType="true" accept=".jpg,.jpeg,.png,.pdf"
+                                          onupload="return confirm('Are you sure?')"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column class="ui-grid-col-12">
+                            <p:selectOneRadio id="console" value="#{calendarioBean.estadoConsulta}">
+                                <f:selectItem itemLabel="Agendado" itemValue="Agendado"/>
+                                <f:selectItem itemLabel="Pagado" itemValue="Pagado"/>
+                                <f:selectItem itemLabel="Atendido" itemValue="Atendido"/>
+                            </p:selectOneRadio>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column class="ui-grid-col-12">
+                            <p:outputLabel for="observaciones" value="Observaciones de la Consulta"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column class="ui-grid-col-12">
+                            <p:inputTextarea rows="5" id="observaciones" value="#{calendarioBean.observacionesConsulta}"
+                                             autoResize="false" style="max-width: 100%"/>
+                        </p:column>
+                    </p:row>
+                    <p:row class="centrar-texto">
+                        <p:column class="ui-grid-col-12 ">
+                            <p:commandButton id="enviar" type="submit" value="Guardar Consulta" icon="pi pi-calendar"
+                                             class="programar" process="@form"
+                                             action="#{calendarioBean.guardarConsulta}"
+                                             oncomplete="PF('myschedule').update();PF('eventDialog').hide();"/>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </p:dialog>
+        </h:form>
+    </h:body>
+</html>

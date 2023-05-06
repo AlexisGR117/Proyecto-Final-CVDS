@@ -40,7 +40,7 @@ public class Usuario {
     @Column(name = "IDENTIFICACION_USUARIO")
     private String documentoUsuario;
 
-    @Column(name = "FIRMA_USUARIO")
+    @Column(name = "FIRMA_USUARIO", length = 1000)
     private String firmaUsuario;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
