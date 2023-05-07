@@ -6,7 +6,7 @@ import org.primefaces.oasis.data.Admin;
 import org.primefaces.oasis.repository.AdminRepository;
 
 import java.util.List;
-
+import java.util.Optional;
 
 /**
  * Utiliza al repositorio (UserRepository.java) la cual interactua con la base de datos
@@ -17,81 +17,77 @@ import java.util.List;
 @Service
 public class AdminService {
 
-    private final AdminRepository userRepository;
+    private final AdminRepository adminRepository;
 
     /**
-     * Constructor para objetos de clase UserService.
-     * @param usuarioRepository Repositorio que accede a la base de datos.
-     */
+     * Constructor para objetos de clase AdminService.
+     * @param adminRepository Repositorio que accede a la base de datos.
+     */
     @Autowired
-    public AdminService(AdminRepository usuarioRepository){
-        this.userRepository = usuarioRepository;
+    public AdminService(AdminRepository adminRepository){
+        this.adminRepository = adminRepository;
     }
 
     /**
-     * Agrega un nuevo usuario a la base de datos.
-     * @param usuario Usuario que se quiere agregar.
-     * @return El usuario que se agregó a la base de datos.
-     */
-    public Admin addAdmin(Admin usuario){
-        return userRepository.save(usuario);
+     * Agrega un nuevo administrador a la base de datos.
+     * @param admin Administrador que se quiere agregar.
+     * @return El administrador que se agregó a la base de datos.
+     */
+    public Admin addAdmin(Admin admin){
+        return adminRepository.save(admin);
     }
 
     /**
-     * Obtiene la configuración dada la propiedad.
-     * @param usuarioId Cadena con el nombre del usuario.
-     * @return El usuario que tiene el nombre dado.
-     */
-    public Admin getAdmin (String usuarioId){
-        Admin admin;
-        try {
-            admin = userRepository.findById(usuarioId).get();
-        }catch (Exception e){
-            admin = null;
-        }
+     * Obtiene la configuración dada la propiedad.
+     * @param adminId Cadena con el nombre del administrador.
+     * @return El administrador que tiene el nombre dado.
+     */
+    public Admin getAdmin (String adminId) {
+        Optional<Admin> optionalAdmin = adminRepository.findById(adminId);
+        Admin admin = null;
+        if (optionalAdmin.isPresent()) admin = optionalAdmin.get();
         return admin;
     }
 
     /**
-     * Da todos los usuarios que están en la base de datos.
-     * @return Lista con los usuarios disponibles.
-     */
+     * Da todos los administradores que están en la base de datos.
+     * @return Lista con los administradores disponibles.
+     */
     public List<Admin> getAllAdmin(){
-        return userRepository.findAll();
+        return adminRepository.findAll();
     }
-    
+
     /**
-     * Actualiza un usuario en la base de datos.
-     * @param usuario Usuario que se quiere actualizar.
-     * @return El nuevo usuario actualizado.
-     */
-    public Admin updateAdmin(Admin usuario){
-        if(userRepository.existsById(usuario.getId())){
-            return userRepository.save(usuario);
+     * Actualiza un administrador en la base de datos.
+     * @param admin administrador que se quiere actualizar.
+     * @return El nuevo usuario actualizado.
+     */
+    public Admin updateAdmin(Admin admin){
+        if(adminRepository.existsById(admin.getNombre())){
+            return adminRepository.save(admin);
         }
         return null;
     }
 
     /**
-     * Elimina un usuario de la base de datos.
-     * @param usuarioId Nombre del usuario.
-     */
-    public void deleteAdmin(String usuarioId){
-        userRepository.deleteById(usuarioId);
+     * Elimina un administrador de la base de datos.
+     * @param adminId Nombre del administrador.
+     */
+    public void deleteAdmin(String adminId){
+        adminRepository.deleteById(adminId);
     }
 
     /**
      * Método que valida que el usuario exista en la base de datos y permite el acceso
      * NOTA: SE DEBE COLOCAR A DONDE SE VA DIRIGIR DESPUES DE QUE SE VALIDE EL ACCESO
-     * @return
+     * @exception ServiceException INVALID_PASSWORD, si el usuario existe pero la contrasena dada es incorrecta.
+     *                             INVALID_NAME, si no existe un administrador con ese nombre de usuario.
      */
-    public Boolean login(String nombre, String contrasena) {
-        Admin usuario = getAdmin(nombre);
-        if (usuario == null || !usuario.getPassword().equals(contrasena)) {
-            return false;
-        } else {
-            return true;
+    public void login(String nombre, String contrasena) throws ServiceException {
+        Admin admin = getAdmin(nombre);
+        if (admin == null) throw new ServiceException(ServiceException.NOMBRE_INVALIDO);
+        else if (!admin.getContrasena().equals(contrasena)) {
+            throw new ServiceException(ServiceException.CONSTRASENA_INVALIDA);
         }
     }
-
 }

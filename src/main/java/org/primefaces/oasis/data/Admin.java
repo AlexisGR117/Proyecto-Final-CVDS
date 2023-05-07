@@ -13,78 +13,60 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "ADMINISTRADORES")
-public class Admin{
+public class Admin {
 
     @Id
-    @Column(name = "USER")
-    private String id;
-    @Column(name = "PASSWORD")
-    private String password;
+    @Column(name = "NOMBRE")
+    private String nombre;
+    @Column(name = "CONTRASENA")
+    private String contrasena;
 
     /**
-     * Constructor de la clase user que tiene como parametros el id y la password del usuario
-     * @param id
-     * @param password
+     * Constructor de la clase user que tiene como parametros el nombre del usuario y su contraseña
+     * @param nombre Cadena con el nombre del usuario
+     * @param contrasena Cadena con la contrasena del usuario
      */
-    public Admin(String id, String password) {
-        this.id = id;
-        this.password = password;
+    public Admin(String nombre, String contrasena) {
+        this.nombre = nombre;
+        this.contrasena = contrasena;
     }
 
-    public Admin() {
+    public Admin() {}
+
+    public String getNombre() {
+        return nombre;
     }
 
-    /**
-     * Método que devuelve el id de del user como entidad
-     * @return
-     */
-    public String getId() {
-        return id;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    /**
-     * Método que ingresa un nuevo id al user como entidad
-     * @param id
-     */
-    public void setId(String id) {
-        this.id = id;
+    public String getContrasena() {
+        return contrasena;
     }
 
-    /**
-     * Método que devuelve la password del usuario como entidad
-     * @return
-     */
-    public String getPassword() {
-        return password;
-    }
-
-    /**
-     * Método que ingresa una nueva password al user como entidad
-     * @param password
-     */
-    public void setPassword(String password) {
-        this.password = password;
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Admin usuario = (Admin) o;
-        return id.equals(usuario.id) && password.equals(usuario.password);
+        Admin admin = (Admin) o;
+        return nombre.equals(admin.nombre) && contrasena.equals(admin.contrasena);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, password);
+        return Objects.hash(nombre, contrasena);
     }
 
     @Override
     public String toString() {
         return "Usuario{" +
-                "id='" + id + '\'' +
-                ", password='" + password + '\'' +
+                "usuario='" + nombre + '\'' +
+                ", contrasena='" + contrasena + '\'' +
                 '}';
     }
-
 }

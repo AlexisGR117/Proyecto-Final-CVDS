@@ -15,13 +15,14 @@
             <span class="titulo">Calendario de Consultas</span>
             <div class="ui-fluid">
                 <div class="padding">
-                    <p:inputText value="#{admiBean.adminNombre}" placeholder="Username" />
+                    <p:inputText value="#{adminBean.adminNombre}" placeholder="Username" />
                 </div>
                 <div class="padding">
-                    <p:password value="#{admiBean.contrasena}" placeholder="Password" feedback="false"/>
+                    <p:password value="#{adminBean.contrasena}" placeholder="Password" feedback="false"/>
                 </div>
                 <div class="padding">
-                    <p:commandButton type="submit" action="#{admiBean.login}" value="Sign In" icon="pi pi-user" update="mensaje" />
+                    <p:commandButton type="submit" action="#{adminBean.login}" value="Sign In" icon="pi pi-user"
+                                     update="mensaje" />
                 </div>
             </div>
         </h:form>
