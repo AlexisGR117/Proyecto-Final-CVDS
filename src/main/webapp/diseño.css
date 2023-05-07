@@ -1,27 +1,29 @@
-h1, h2, h3{
+h1, h2, h3 {
     color:aliceblue;
     text-align: left;
     font-weight: bold;
-    
 }
 
-.bodyp{
+.bodyp {
     background-color: rgb(49, 49, 49);
 }
-.divp{
-    background-image: url("usa.jpg");
+
+.divp {
+    background-image: url("resources/images/usa.jpg");
     background-size: 100%;
     min-height: 700px;
     height: 700px;
     height: auto;
 }
-.divp2{
-    background-image: url("usa.jpg");
+
+.divp2 {
+    background-image: url("resources/images/usa.jpg");
     background-size: 100%;
     min-height: max-content;
     padding: 20px;
 }
-.divsprincipal{
+
+.divsprincipal {
     background-color: rgb(10, 10, 104);
     width: 500px;
     height: min-content;
@@ -33,13 +35,15 @@ h1, h2, h3{
     left: 35%;
     text-align: center;
 }
-.pdiv{
+
+.pdiv {
     color: aliceblue;
     text-align: center;
     justify-content: center;
 
 }
-.contacto{
+
+.contacto {
     background-color: rgb(106, 105, 105,0.9);
     height: 90%;
     width: 20%;
@@ -47,23 +51,24 @@ h1, h2, h3{
     padding: 20px;
     position: relative;
     float: left;
-    box-shadow: 8px 10px 10px 1px rgba(40, 57, 65, 0.5) ; 
-
-
+    box-shadow: 8px 10px 10px 1px rgba(40, 57, 65, 0.5) ;
 }
-.fontcontacto{
+
+.fontcontacto {
     color: aliceblue;
     font-size: 150%;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
 }
-.fontcontacto1{
+
+.fontcontacto1 {
     color: rgb(204, 204, 204);
     font-size: 120%;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
 }
-.cita{
+
+.cita {
     background-color: rgb(214, 214, 214,0.9);
     width: 75%;
     height: 90%;
@@ -74,7 +79,8 @@ h1, h2, h3{
     position: relative;
     box-shadow: 8px 10px 10px 1px rgba(40, 57, 65, 0.5) ; 
 }
-.fontcita{
+
+.fontcita {
     color: rgb(40, 40, 40);
     font-size: 150%;
     font-family: Arial, Helvetica, sans-serif;
@@ -82,14 +88,16 @@ h1, h2, h3{
     font-weight: bold;
     text-align: center;
 }
-.fontcita1{
+
+.fontcita1 {
     color: rgb(51, 51, 51);
     font-size: 120%;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 20px;
     font-weight: bold;
 }
-.boton1{
+
+.boton1 {
     width: 300px;
     height: 150px;
     background-color: rgb(60, 144, 240); 
@@ -99,21 +107,24 @@ h1, h2, h3{
     position: relative;
     font-weight: 700;
 }
-#mano{
+
+#mano {
     width:700px;
     height: 400px;
     position: relative;
     bottom: 300px;
     left: 60%;
 }
-.fontcontacto2{
+
+.fontcontacto2 {
     color: aliceblue;
     font-size: 150%;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
     text-align: center;
 }
-.divnosotros{
+
+.divnosotros {
     background-color: rgb(106, 105, 105,0.9);
     height: 90%;
     width: 90%;
@@ -121,6 +132,5 @@ h1, h2, h3{
     padding: 20px;
     position: relative;
     float: left;
-    box-shadow: 8px 10px 10px 1px rgba(40, 57, 65, 0.5) ; 
-
+    box-shadow: 8px 10px 10px 1px rgba(40, 57, 65, 0.5) ;
 }

@@ -3,8 +3,8 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
-
+      xmlns:p="http://primefaces.org/ui"
+      lang="es">
     <h:head>
         <f:facet name="first">
             <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -14,15 +14,11 @@
         </f:facet>
         <title>PrimeFaces Omega</title>
     </h:head>
-
     <h:body style="background-color:rgb(225, 226, 226)">
-    
         <div id="login-wrapper">
             <p:graphicImage name="images/login-logo.png" library="omega-layout" />
-            
             <div id="login-container">
                 <span class="title">Omega</span>
-
                 <div class="grid ui-fluid">
                     <div class="col-12">
                         <p:inputText placeholder="Username" />
@@ -42,13 +38,10 @@
                     </div>
                 </div>
             </div>
-            
             <div class="login-footer">PrimeFaces Omega</div>
         </div>
-
         <h:outputStylesheet name="css/primeicons.css" library="omega-layout"/>
         <h:outputStylesheet name="css/primeflex.min.css" library="omega-layout"/>
         <h:outputStylesheet name="css/layout-#{guestPreferences.layout}.css" library="omega-layout"/>
     </h:body>
-
 </html>

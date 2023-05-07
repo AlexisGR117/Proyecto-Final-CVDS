@@ -17,6 +17,7 @@ org\primefaces\omega\service\DocumentService.class
 org\primefaces\omega\domain\CustomerStatus.class
 org\primefaces\omega\service\ProductService.class
 org\primefaces\Main.class
+org\primefaces\oasis\a.class
 org\primefaces\omega\component\OmegaMenuRenderer.class
 org\primefaces\omega\view\GuestPreferences.class
 org\primefaces\omega\view\ListDemoView.class
