@@ -65,9 +65,9 @@
                         <p:column class="ui-grid-col-6">
                             <p:outputLabel value="Fecha de la consulta"/>
                             <br/>
-                            <p:datePicker inline="true" readonlyInput="true" value="#{usuarioDataBean.fecha}"
+                            <p:datePicker id="calendario" inline="true" readonlyInput="true" value="#{usuarioDataBean.fecha}"
                                           style="max-width:400px">
-                                <p:ajax event="dateSelect" update="scroller title" />
+                                <p:ajax event="dateSelect" update="scroller title horario"/>
                             </p:datePicker>
                         </p:column>
                         <p:column class="ui-grid-col-1">
@@ -78,7 +78,7 @@
                             <br/>
                             <p:dataScroller id="scroller" var="hora" value="#{usuarioDataBean.consultasFecha}"
                                             mode="inline" scrollHeight="400" style="width:50%" class="centrar-horizontal">
-                                <p:commandButton value="#{hora}" type="submit"
+                                <p:commandButton  id="estilo" value="#{hora}" type="submit"
                                                  actionListener="#{usuarioDataBean.setHora(hora)}"
                                                  update="mensaje horario scroller"
                                                  styleClass="#{usuarioDataBean.hora eq hora ?
@@ -125,7 +125,7 @@
                     </p:row>
                     <p:row class="centrar-texto">
                         <p:column class="ui-grid-col-12">
-                            <p:selectBooleanCheckbox itemLabel="Estoy de acuerdo con los"
+                            <p:selectBooleanCheckbox id="seleccionado" itemLabel="Estoy de acuerdo con los"
                                                      value="#{usuarioDataBean.seleccionado}">
                                 <p:ajax update="mensaje enviar"/>
                             </p:selectBooleanCheckbox>
@@ -134,8 +134,8 @@
                     </p:row>
                     <p:row class="centrar-texto">
                         <p:column class="ui-grid-col-12 ">
-                            <p:commandButton id="enviar" type="submit" value="Programar Consulta" icon="pi pi-calendar"
-                                             class="programar" update="consulta" process="@form"
+                            <p:commandButton id="enviar" type="submit" value="Programar Consulta"
+                                             icon="pi pi-calendar-plus" class="programar" update="consulta" process="@form"
                                              action="#{usuarioDataBean.programarConsulta}"
                                              disabled="#{usuarioDataBean.seleccionado eq false}"/>
                         </p:column>
