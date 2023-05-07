@@ -9,15 +9,43 @@
         <title>Consultas</title>
         <link rel="stylesheet" href="consultas.css"/>
     </h:head>
-    <h:body>
+    <h:body onload="#{calendarioBean.initPage()}">
         <p:growl id="mensaje" showDetail="true"/>
-        <h:form id="consultas">
+        <h:form id="consultas" style="text-align:center">
+            <h:outputText value="Consultas programadas" class="titulo"/>
+            <p:divider align="left" class="titulo-grupo">
+                <div class="inline-flex align-items-center">
+                    <i class="pi pi-calendar mr-2"/>
+                    <h:outputText value=" Calendario de citas"/>
+                </div>
+            </p:divider>
             <p:schedule id="schedule" value="#{calendarioBean.modelo}" widgetVar="myschedule"
-                        timeZone="#{calendarioBean.severTimeZone}" clientTimeZone="#{calendarioBean.severTimeZone}">
+                        timeZone="#{calendarioBean.severTimeZone}" clientTimeZone="#{calendarioBean.severTimeZone}"
+                        style="width: 70%; margin: 0 auto;">
                 <p:ajax event="eventSelect" listener="#{calendarioBean.onEventSelect}" update="eventDetails"
                         oncomplete="PF('eventDialog').show();"/>
             </p:schedule>
-
+            <p:divider align="left" class="titulo-grupo">
+                <div class="inline-flex align-items-center">
+                    <i class="pi pi-info-circle mr-2"/>
+                    <h:outputText value=" Información sobre el calendario de citas"/>
+                </div>
+            </p:divider>
+            <div style="text-align:left; margin-left: 5%; max-width:90%">
+                <p:outputLabel value="Las citas programadas tienen un color que representa su estado que pueden ser:"/>
+                <h:panelGrid columns="2" cellpadding="5" style="text-align:left">
+                    <span class="legend" style="background:#FFFF00"/>
+                    <p:outputLabel value="Agendado"/>
+                    <span class="legend" style="background:#27AE60"/>
+                    <p:outputLabel value="Pagado"/>
+                    <span class="legend" style="background:#c2c2c2"/>
+                    <p:outputLabel value="Atendido"/>
+                </h:panelGrid>
+                <p:outputLabel value="Al seleccionar una cita se puede ver toda la información suministrada por el
+                usuario, como también el poder adjuntar el soporte de pago que puede ser .jpg, .jpeg, .png o .pdf,
+                después de agregado se debe oprimir el botón 'submit'. De igual forma, se podrá ingresar un texto de
+                observaciones y cambiar el estado de la consulta."/>
+            </div>
             <p:dialog widgetVar="eventDialog" header="Información de la Consulta" minHeight="40" height="600"
                       width="800" showEffect="fade" minimizable="true" maximizable="true" hideEffect="fade">
                 <p:panelGrid id="eventDetails" columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"

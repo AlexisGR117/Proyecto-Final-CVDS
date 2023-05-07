@@ -2,6 +2,7 @@ package org.primefaces.oasis.form;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.annotation.PostConstruct;
 
@@ -30,6 +31,7 @@ import org.primefaces.oasis.data.Consulta;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -43,7 +45,7 @@ public class CalendarioBean {
     private ConsultaService consultaService;
     @Inject
     private UsuarioService usuarioService;
-    private ScheduleModel modelo;
+    private ScheduleModel modelo =  new DefaultScheduleModel();
     private String severTimeZone = ZoneId.systemDefault().toString();
     private Consulta consulta;
     private DefaultScheduleEvent<?> eventoSeleccionado = new DefaultScheduleEvent<>();
@@ -51,16 +53,6 @@ public class CalendarioBean {
     private UploadedFile comprobantePago;
     private String estadoConsulta;
     private String observacionesConsulta;
-
-    /**
-     * Metodo que realiza una iteracion en las consultas de la base de datos y realiza una asignación a los eventos
-     * con sus atributos correspondientes
-     */
-    @PostConstruct
-    public void init(){
-        modelo = new DefaultScheduleModel();
-        crearEventos();
-    }
 
     /**
      * Metodo que selecciona un evento en la iteracion de las consultas en la base de datos
@@ -123,9 +115,9 @@ public class CalendarioBean {
      * del Schedule
      */
     public void crearEventos() {
+        modelo.clear();
         DefaultScheduleEvent<?> evento;
         List<Consulta> consultas = consultaService.getAllConsultas();
-        String fecha;
         String color;
         for (Consulta c: consultas){
             color = colorConsulta(c.getEstadoConsulta());
@@ -138,9 +130,15 @@ public class CalendarioBean {
                     .description(c.getRazonConsulta())
                     .borderColor(color)
                     .backgroundColor(color)
+                    .editable(false)
+                    .overlapAllowed(false)
                     .build();
             modelo.addEvent(evento);
-            eventosConsultas.put(evento, c);
+            eventosConsultas.putIfAbsent(evento, c);
         }
+    }
+
+    public void initPage() {
+        crearEventos();
     }
 }
