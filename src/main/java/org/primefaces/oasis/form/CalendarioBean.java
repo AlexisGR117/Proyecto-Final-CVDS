@@ -116,6 +116,7 @@ public class CalendarioBean {
      */
     public void crearEventos() {
         modelo.clear();
+        eventosConsultas = new HashMap<>();
         DefaultScheduleEvent<?> evento;
         List<Consulta> consultas = consultaService.getAllConsultas();
         String color;
@@ -134,7 +135,7 @@ public class CalendarioBean {
                     .overlapAllowed(false)
                     .build();
             modelo.addEvent(evento);
-            eventosConsultas.putIfAbsent(evento, c);
+            eventosConsultas.put(evento, c);
         }
     }
 
