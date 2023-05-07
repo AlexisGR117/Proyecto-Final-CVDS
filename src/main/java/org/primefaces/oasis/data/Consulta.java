@@ -28,10 +28,14 @@ public class Consulta {
     private String razonConsulta;
 
     @Column(name = "COMPROBANTE_PAGO")
-    private UploadedFile comprobandoPago;
+    private File comprobandoPago;
 
     @Column(name = "ESTADO_CONSULTA")
     private EstadoConsulta estadoConsulta;
+
+    @Column(name = "OBSERVACIONES")
+    private String observaciones;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;

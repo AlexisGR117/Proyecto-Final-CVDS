@@ -23,6 +23,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.TextStyle;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -49,11 +50,18 @@ public class UsuarioDataBean implements Serializable {
     private String hora;
     private String firma;
     private boolean seleccionado;
-
+    private LocalDate fechaMinima;
+    private LocalDate fechaMaxima;
+    private int precio;
+    private List<Integer> diasDeshabilitados;
 
     public UsuarioDataBean(){
-        fecha = LocalDate.now();
+        fecha = LocalDate.now().plusDays(1);
         seleccionado = false;
+        fechaMinima = LocalDate.now().plusDays(1);
+        fechaMaxima = LocalDate.now().plusDays(ConsultaService.DIAS_MAXIMO);
+        diasDeshabilitados = ConsultaService.DIAS_DESHABILITADOS;
+        precio = ConsultaService.PRECIO;
     }
 
     @Bean
@@ -101,7 +109,7 @@ public class UsuarioDataBean implements Serializable {
         } catch (ConsultasException e) {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error!: " , e.getMessage());
             PrimeFaces.current().dialog().showMessageDynamic(message);
-            return null;
+            return Collections.emptyList();
         }
     }
 
@@ -140,14 +148,8 @@ public class UsuarioDataBean implements Serializable {
                     "Seleccione horario", "No ha seleccionado el horario de la consulta");
             FacesContext.getCurrentInstance().addMessage(null, message);
         } else {
-            // Lo siguiente no se si va en services
-            // Verificar que no exista el usuario
-            // Vamos a tomar que el id sea el noIdentifiacion?
-            // Si no existe se crea y se agrega a la base de datos
             Usuario usuarioNuevo = new Usuario(nombre, email, telefono, ciudad, noIdentificacion, firma);
             usuarioService.addUsuario(usuarioNuevo);
-            // Si existe se obtiene con getUsuario
-            // Ahora se crea la nueva consulta y se agrega
             String[] tiempo = hora.split(":");
             ConsultaId consultaIdNueva = new ConsultaId(fecha, LocalTime.of(Integer.parseInt(tiempo[0]),
                     Integer.parseInt(tiempo[1])));
@@ -156,7 +158,6 @@ public class UsuarioDataBean implements Serializable {
             message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Consulta",
                     " Se ha agendado exitosamente su cita!");
             PrimeFaces.current().dialog().showMessageDynamic(message);
-            // Ademas toca agregar el envio del correo con la informacion ingresada
         }
         return null;
     }

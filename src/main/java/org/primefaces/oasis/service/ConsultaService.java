@@ -7,22 +7,22 @@ import org.primefaces.oasis.repository.ConsultaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
-import javax.swing.text.html.parser.Entity;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class ConsultaService implements Serializable {
-    private static final int limiteInferior = 7;
-    private static final int limiteSuperior = 15;
-    private static final int intervaloMinutos = 30;
+    public static final int LIMITE_INFERIOR = 7;
+    public static final int LIMITE_SUPERIOR = 15;
+    public static final int INTERVALO_MINUTOS = 60;
+    public static final int DIAS_MAXIMO = 30;
+    public static final int PRECIO = 150;
+    public static final List<Integer> DIAS_DESHABILITADOS = Arrays.asList(0, 6);
     private final ConsultaRepository consultaRepository;
     @Autowired
     public ConsultaService(ConsultaRepository consultaRepository){
@@ -75,15 +75,15 @@ public class ConsultaService implements Serializable {
     }
     private List<String> horaSetter(List<String> valoresPosibles) throws ConsultasException {
         List<String> horas = new ArrayList<>();
-        LocalTime clock = LocalTime.of(limiteInferior,0,0);
+        LocalTime clock = LocalTime.of(LIMITE_INFERIOR,0,0);
         horas.add(clock.toString());
-        int i = (limiteInferior * 100) + intervaloMinutos;
-        while (i < limiteSuperior*100){
-            clock = clock.plusMinutes(intervaloMinutos);
+        int i = (LIMITE_INFERIOR * 100) + INTERVALO_MINUTOS;
+        while (i < LIMITE_SUPERIOR *100){
+            clock = clock.plusMinutes(INTERVALO_MINUTOS);
             if(!valoresPosibles.contains(clock.toString())){
                 horas.add(clock.toString());
             }
-            i += intervaloMinutos;
+            i += INTERVALO_MINUTOS;
         }
         if(horas.isEmpty()){
             throw new ConsultasException(ConsultasException.LLENO_DE_CONSULTAS);
