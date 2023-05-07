@@ -1,6 +1,8 @@
 package org.primefaces.oasis.data;
 
 import lombok.*;
+import org.primefaces.model.file.UploadedFile;
+import org.primefaces.oasis.service.EstadoConsulta;
 
 import javax.persistence.*;
 import java.io.File;
@@ -26,11 +28,11 @@ public class Consulta {
     private String razonConsulta;
 
     @Column(name = "COMPROBANTE_PAGO")
-    private File comprobandoPago;
+    private UploadedFile comprobandoPago;
 
     @Column(name = "ESTADO_CONSULTA")
-    private String estadoConsulta;
-    @ManyToOne(fetch = FetchType.LAZY)
+    private EstadoConsulta estadoConsulta;
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
     /**
@@ -42,7 +44,7 @@ public class Consulta {
         this.razonConsulta = razonConsulta;
         id = consultaid;
         this.usuario = usuario;
-        estadoConsulta = "AGENDADO";
+        estadoConsulta = EstadoConsulta.AGENDADA;
     }
 
     @Override

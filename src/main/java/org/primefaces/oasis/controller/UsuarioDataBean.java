@@ -1,4 +1,4 @@
-package org.primefaces.oasis.form;
+package org.primefaces.oasis.controller;
 
 
 import lombok.*;
@@ -7,6 +7,7 @@ import org.primefaces.oasis.data.Consulta;
 import org.primefaces.oasis.data.ConsultaId;
 import org.primefaces.oasis.data.Usuario;
 
+import org.primefaces.oasis.exceptions.ConsultasException;
 import org.primefaces.oasis.service.ConsultaService;
 import org.primefaces.oasis.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +19,10 @@ import org.springframework.web.context.annotation.ApplicationScope;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
-import java.io.File;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.TextStyle;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -85,7 +83,12 @@ public class UsuarioDataBean implements Serializable {
         usuarioService.addUsuario(new Usuario(nombre,email,telefono,ciudad,noIdentificacion,firma));
     }
     public void settingHours(){
-        consultaService.getConsultasFecha(fecha);
+        try{
+            consultaService.getConsultasFecha(fecha);
+        }catch (ConsultasException e){
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error!: " , e.getMessage());
+            PrimeFaces.current().dialog().showMessageDynamic(message);
+        }
     }
 
     /**
@@ -93,7 +96,13 @@ public class UsuarioDataBean implements Serializable {
      * @return Lista de String con las horas disponibles para el dia seleccionado
      */
     public List<String> getConsultasFecha() {
-        return consultaService.getConsultasFecha(fecha);
+        try {
+            return consultaService.getConsultasFecha(fecha);
+        } catch (ConsultasException e) {
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error!: " , e.getMessage());
+            PrimeFaces.current().dialog().showMessageDynamic(message);
+            return null;
+        }
     }
 
     /**
