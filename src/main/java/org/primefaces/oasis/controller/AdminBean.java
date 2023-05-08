@@ -1,8 +1,8 @@
-package org.primefaces.oasis.form;
+package org.primefaces.oasis.controller;
 
 import org.primefaces.oasis.data.Admin;
+import org.primefaces.oasis.exceptions.AdminException;
 import org.primefaces.oasis.service.AdminService;
-import org.primefaces.oasis.service.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -17,9 +17,7 @@ import java.io.Serializable;
 /**
  * Clase que permite tener el usuario como objeto además de conectar y añadir usuarios a la base de datos
  * fecha: 4/27/2023
- * Hecho por: Daniel Santiago Gomez Zabala
- * Modificado por:
- * fecha de modificación:
+ * @author Daniel Santiago Gomez Zabala
  */
 @Component
 @ManagedBean(name = "adminBean")
@@ -48,27 +46,28 @@ public class AdminBean implements Serializable {
     }
 
     /**
-     * Método que verifica que el usuario exista en la base de datos y permite el acceso desde el service
+     * Método que verifica que el usuario exista en la base de datos y permite el acceso desde el service.
+     * @return La página a la que se va a redirigir si el login es exitoso.
      */
     public String login() {
         try {
             adminService.login(adminNombre, contrasena);
-        } catch (ServiceException e) {
-            FacesContext.getCurrentInstance().addMessage("@all", new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    e.getMessage(), null));
+        } catch (AdminException e) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Verifique:", e.getMessage()));
             return null;
         }
         return "consultas.xhtml";
     }
 
     /**
-     * Método donde se puede añadir usuarios a la base de datos y además los muestra en consola
+     * Método donde se puede añadir usuarios a la base de datos y además los muestra en consola.
      */
     @Bean
     public CommandLineRunner currentUser() {
         return args -> {
             adminService.addAdmin(new Admin("admin", "admin"));
-            adminService.getAllAdmin().forEach(System.out::println);
+            adminService.addAdmin(new Admin("HALS", "password"));
         };
     }
 }

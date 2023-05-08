@@ -1,13 +1,12 @@
-package org.primefaces.oasis;
+package org.primefaces.oasis.service;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.primefaces.oasis.data.Admin;
+import org.primefaces.oasis.exceptions.AdminException;
 import org.primefaces.oasis.repository.AdminRepository;
-import org.primefaces.oasis.service.AdminService;
-import org.primefaces.oasis.service.ServiceException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,8 +87,8 @@ class AdminSTest{
         try {
             adminService.login("Santiago Administrador", "78956");
             fail("Did not throw exception");
-        } catch (ServiceException e) {
-            assertEquals(ServiceException.CONSTRASENA_INVALIDA, e.getMessage());
+        } catch (AdminException e) {
+            assertEquals(AdminException.CONSTRASENA_INVALIDA, e.getMessage());
         }
     }
 
@@ -99,8 +98,8 @@ class AdminSTest{
             when(adminRepository.findById("Andres Administrador")).thenReturn(Optional.empty());
             adminService.login("Andres Administrador", "12345");
             fail("Did not throw exception");
-        } catch (ServiceException e) {
-            assertEquals(ServiceException.NOMBRE_INVALIDO, e.getMessage());
+        } catch (AdminException e) {
+            assertEquals(AdminException.NOMBRE_INVALIDO, e.getMessage());
         }
     }
 

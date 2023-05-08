@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Locale;
 
 /**
+ * Bean que maneja la interacciones del usuario con la página del formulario para programar la consulta.
  * Lombock creara los getter, setters, constructor equals, to String y demas con la opcion de @Data
  */
 @Component
@@ -39,7 +40,6 @@ public class UsuarioDataBean implements Serializable {
     UsuarioService usuarioService;
     @Autowired
     ConsultaService consultaService;
-
     private String nombre;
     private String email;
     private String telefono;
@@ -55,7 +55,10 @@ public class UsuarioDataBean implements Serializable {
     private int precio;
     private List<Integer> diasDeshabilitados;
 
-    public UsuarioDataBean(){
+    /**
+     * Constructor para objetos de clase UsuarioDataBean
+     */
+    public UsuarioDataBean() {
         fecha = LocalDate.now().plusDays(1);
         seleccionado = false;
         fechaMinima = LocalDate.now().plusDays(1);
@@ -90,6 +93,7 @@ public class UsuarioDataBean implements Serializable {
     public void anadirUsuario() {
         usuarioService.addUsuario(new Usuario(nombre,email,telefono,ciudad,noIdentificacion,firma));
     }
+
     public void settingHours(){
         try{
             consultaService.getConsultasFecha(fecha);

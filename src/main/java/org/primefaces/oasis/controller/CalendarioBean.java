@@ -39,6 +39,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Bean que maneja la interacciones del administrador con la página de consultas programadas.
+ */
 @Component
 @ManagedBean(name = "calendarioBean")
 @ApplicationScope
@@ -62,7 +65,7 @@ public class CalendarioBean {
      * Metodo que selecciona un evento en la iteracion de las consultas en la base de datos
      * @param seleccionEvento El evento que ha seleccionado el administrador en el Schedule
      */
-    public void onEventSelect(SelectEvent<DefaultScheduleEvent<?>> seleccionEvento){
+    public void onEventSelect(SelectEvent<DefaultScheduleEvent<?>> seleccionEvento) {
         eventoSeleccionado = seleccionEvento.getObject();
         consulta = eventosConsultas.get(eventoSeleccionado);
         estadoConsulta = consulta.getEstadoConsulta();
@@ -75,7 +78,7 @@ public class CalendarioBean {
      * Guarda la consulta que se ha seleccionado y se actualiza dados us cambios.
      */
     public void guardarConsulta() {
-        if (!consulta.getEstadoConsulta().equals(estadoConsulta)){
+        if (!consulta.getEstadoConsulta().equals(estadoConsulta)) {
             consulta.setEstadoConsulta(estadoConsulta);
             String color = colorConsulta(consulta.getEstadoConsulta());
             eventoSeleccionado.setBorderColor(color);
@@ -140,10 +143,6 @@ public class CalendarioBean {
             modelo.addEvent(evento);
             eventosConsultas.put(evento, c);
         }
-    }
-
-    public void initPage() {
-        crearEventos();
     }
 
     public void setEstadoConsulta(String estadoConsulta) {

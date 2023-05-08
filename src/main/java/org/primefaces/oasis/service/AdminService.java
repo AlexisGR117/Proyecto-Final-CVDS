@@ -1,5 +1,6 @@
 package org.primefaces.oasis.service;
 
+import org.primefaces.oasis.exceptions.AdminException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.primefaces.oasis.data.Admin;
@@ -33,7 +34,7 @@ public class AdminService {
      * @param admin Administrador que se quiere agregar.
      * @return El administrador que se agregó a la base de datos.
      */
-    public Admin addAdmin(Admin admin){
+    public Admin addAdmin(Admin admin) {
         return adminRepository.save(admin);
     }
 
@@ -42,7 +43,7 @@ public class AdminService {
      * @param adminId Cadena con el nombre del administrador.
      * @return El administrador que tiene el nombre dado.
      */
-    public Admin getAdmin (String adminId) {
+    public Admin getAdmin(String adminId) {
         Optional<Admin> optionalAdmin = adminRepository.findById(adminId);
         Admin admin = null;
         if (optionalAdmin.isPresent()) admin = optionalAdmin.get();
@@ -62,7 +63,7 @@ public class AdminService {
      * @param admin administrador que se quiere actualizar.
      * @return El nuevo usuario actualizado.
      */
-    public Admin updateAdmin(Admin admin){
+    public Admin updateAdmin(Admin admin) {
         if(adminRepository.existsById(admin.getNombre())){
             return adminRepository.save(admin);
         }
@@ -80,14 +81,16 @@ public class AdminService {
     /**
      * Método que valida que el usuario exista en la base de datos y permite el acceso
      * NOTA: SE DEBE COLOCAR A DONDE SE VA DIRIGIR DESPUES DE QUE SE VALIDE EL ACCESO
-     * @exception ServiceException INVALID_PASSWORD, si el usuario existe pero la contrasena dada es incorrecta.
+     * @exception AdminException INVALID_PASSWORD, si el usuario existe pero la contrasena dada es incorrecta.
      *                             INVALID_NAME, si no existe un administrador con ese nombre de usuario.
      */
-    public void login(String nombre, String contrasena) throws ServiceException {
+    public void login(String nombre, String contrasena) throws AdminException {
+        if (nombre == null) throw new AdminException(AdminException.NOMBRE_VACIO);
+        if (contrasena == null) throw new AdminException(AdminException.CONTRASENA_VACIA);
         Admin admin = getAdmin(nombre);
-        if (admin == null) throw new ServiceException(ServiceException.NOMBRE_INVALIDO);
+        if (admin == null) throw new AdminException(AdminException.NOMBRE_INVALIDO);
         else if (!admin.getContrasena().equals(contrasena)) {
-            throw new ServiceException(ServiceException.CONSTRASENA_INVALIDA);
+            throw new AdminException(AdminException.CONSTRASENA_INVALIDA);
         }
     }
 }

@@ -12,7 +12,8 @@ import java.util.StringJoiner;
 
 /**
  * el @Table es para que si so si asi se llama la tabla en la base de datos.
- * Lombock generara  equals y hashcode automaticamente es decir no aparece ene l codigo pero en running time existen y pueden ser llamados
+ * Lombock generara  equals y hashcode automaticamente es decir no aparece ene l codigo pero en running time
+ * existen y pueden ser llamados
  * Lombock generara los getter y setters segun se modificquen es decir existen mas  no aparecen el codigo
  * Lombock creara el consstructor con solo algunos de los atributos estos son los que tienen la etiqueta @nOnULL
  */
