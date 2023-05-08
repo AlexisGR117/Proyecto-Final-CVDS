@@ -1,4 +1,4 @@
-package org.primefaces.oasis.form;
+package org.primefaces.oasis.controller;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
