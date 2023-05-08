@@ -65,8 +65,11 @@
                         <p:column class="ui-grid-col-6">
                             <p:outputLabel value="Fecha de la consulta"/>
                             <br/>
-                            <p:datePicker id="calendario" inline="true" readonlyInput="true" value="#{usuarioDataBean.fecha}"
-                                          style="max-width:400px">
+                            <p:datePicker id="calendario" inline="true" readonlyInput="true"
+                                          value="#{usuarioDataBean.fecha}"  style="max-width:400px"
+                                          disabledDays="#{usuarioDataBean.diasDeshabilitados}"
+                                          mindate="#{usuarioDataBean.fechaMinima}"
+                                          maxdate="#{usuarioDataBean.fechaMaxima}">
                                 <p:ajax event="dateSelect" update="scroller title horario"/>
                             </p:datePicker>
                         </p:column>
@@ -92,10 +95,17 @@
                         <p:column class="ui-grid-col-12">
                             <p:divider align="left">
                                 <div class="inline-flex align-items-center">
-                                    <i class="pi pi-money-bill mr-2"/>
-                                    <p:outputLabel value=" Pago"/>
+                                    <i class="pi pi-file-edit mr-2"/>
+                                    <p:outputLabel value=" Términos y Condiciones"/>
                                 </div>
                             </p:divider>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column class="ui-grid-col-12 centrar-texto">
+                            <p:outputLabel value="La consulta tiene un costo de $#{usuarioDataBean.precio}, a
+                            continuación debe poner su firma y aceptar los términos y condiciones para poder
+                            programar su consulta."/>
                         </p:column>
                     </p:row>
                     <p:row class="centrar-texto">
