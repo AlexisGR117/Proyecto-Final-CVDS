@@ -28,7 +28,7 @@ public class Consulta {
     private String razonConsulta;
 
     @Column(name = "COMPROBANTE_PAGO")
-    private UploadedFile comprobandoPago;
+    private File comprobandoPago;
 
     @Column(name = "ESTADO_CONSULTA")
     private EstadoConsulta estadoConsulta;

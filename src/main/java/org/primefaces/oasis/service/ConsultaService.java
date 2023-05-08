@@ -7,10 +7,6 @@ import org.primefaces.oasis.repository.ConsultaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
-import javax.swing.text.html.parser.Entity;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -55,7 +51,7 @@ public class ConsultaService implements Serializable {
      */
     public List<String> getConsultasFecha(LocalDate fecha) throws ConsultasException {
         List<Consulta> consultas = getAllConsultas();
-        return(validator(consultas, fecha));
+        return(validador(consultas, fecha));
     }
 
     /**
@@ -64,16 +60,23 @@ public class ConsultaService implements Serializable {
      * @param fecha Fecha dada para comparar
      * @return Listado con las consultas con la fecha correcto.
      */
-    private List<String> validator(List<Consulta> consultas, LocalDate fecha) throws ConsultasException {
+    private List<String> validador(List<Consulta> consultas, LocalDate fecha) throws ConsultasException {
         List<String> horasNuevas = new ArrayList<>();
         for (Consulta i : consultas){
             if(i.getId().getFecha().equals(fecha)) {
                 horasNuevas.add(i.getId().getHora().toString());
             }
         }
-        return horaSetter(horasNuevas);
+        return horaSeteada(horasNuevas);
     }
-    private List<String> horaSetter(List<String> valoresPosibles) throws ConsultasException {
+
+    /**
+     * Este metodo se encarga de verificar que horas no han sido tomadas para mostrarlas como un nuevo posible regisatro
+     * @param valoresPosibles
+     * @return
+     * @throws ConsultasException
+     */
+    private List<String> horaSeteada(List<String> valoresPosibles) throws ConsultasException {
         List<String> horas = new ArrayList<>();
         LocalTime clock = LocalTime.of(limiteInferior,0,0);
         horas.add(clock.toString());

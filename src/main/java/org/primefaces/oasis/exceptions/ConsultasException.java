@@ -1,11 +1,12 @@
 package org.primefaces.oasis.exceptions;
 
 public class ConsultasException extends Exception{
-    public static String NOMBRE_INCORRECTO = "PARECE QUE SU NOMBRE DE USUARIO ES INCORRECTO PORFAVOR VERIFIQUE";
-    public static  String CONTRASEÑA_INCORRECTA = "PARECE QUE LA CONTRASEÑA ES INCORRECTA PORFAVOR VERIFICA";
-    public static String CONSULTA_SIN_HORA = "NO SE PUEDE TENER UNA CONSULTA SIN HORA";
-    public static String CONSULTA_SIN_FECHA = "NO SE PUEDE HACER UNA CONSULTA SIN UNA FECHA DEFINIDA";
-    public static String LLENO_DE_CONSULTAS = "LO SENTIMOS PARA ESTA FECHA SELECICONADA NO QUEDAN MAS CITAS PORFAVOR PRUEBE CON OTRA FECHA";
+    public static String NOMBRE_INCORRECTO = "Parece que su nombre de Usuario es incorrecto porfavor verifique";
+    public static  String CONTRASEÑA_INCORRECTA = "Parece que la contraseña es incorrecta porfavor verifique";
+    public static String CONSULTA_SIN_HORA = "No se puede crear una consuulta sin hora seleccionada";
+    public static String CONSULTA_SIN_FECHA = "No se puede crear una consulta sin una fecha definida";
+    public static String LLENO_DE_CONSULTAS = "Lo siento para esta fecha no queda disponibilidad horaria porfavor " +
+            "verifique";
     public ConsultasException(String e){
         super(e);
     }
