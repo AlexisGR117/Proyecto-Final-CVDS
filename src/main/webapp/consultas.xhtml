@@ -48,7 +48,8 @@
             </div>
             <p:dialog widgetVar="eventDialog" header="Información de la Consulta" minHeight="40" height="600"
                       width="800" showEffect="fade" minimizable="true" maximizable="true" hideEffect="fade">
-                <p:panelGrid id="eventDetails" columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+                <p:panelGrid id="eventDetails" columns="4"
+                             columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
                              layout="grid" class="ui-fluid">
                     <p:row class="titulo-grupo">
                         <p:column class="ui-grid-col-12">
@@ -61,15 +62,15 @@
                         </p:column>
                     </p:row>
                     <p:outputLabel for="nombre" value="Nombre: "/>
-                    <p:outputLabel id="nombre" value="#{calendarioBean.consulta.usuario.nombreUsuario}"/>
-                    <p:outputLabel for="correo" value="Correo"/>
-                    <p:outputLabel id="correo" value="#{calendarioBean.consulta.usuario.emailUsuario}"/>
-                    <p:outputLabel for="telefono" value="Teléfono"/>
-                    <p:outputLabel id="telefono" value="#{calendarioBean.consulta.usuario.telefonoUsuario}"/>
-                    <p:outputLabel for="ciudad" value="Ciudad"/>
-                    <p:outputLabel id="ciudad" value="#{calendarioBean.consulta.usuario.ciudadUsuario}"/>
-                    <p:outputLabel for="numero" value="Número de Identificación"/>
-                    <p:outputLabel id="numero" value="#{calendarioBean.consulta.usuario.documentoUsuario}"/>
+                    <p:outputLabel id="nombre" value="#{calendarioBean.consulta.usuario.nombre}"/>
+                    <p:outputLabel for="correo" value="Correo:"/>
+                    <p:outputLabel id="correo" value="#{calendarioBean.consulta.usuario.email}"/>
+                    <p:outputLabel for="telefono" value="Teléfono:"/>
+                    <p:outputLabel id="telefono" value="#{calendarioBean.consulta.usuario.telefono}"/>
+                    <p:outputLabel for="ciudad" value="Ciudad:"/>
+                    <p:outputLabel id="ciudad" value="#{calendarioBean.consulta.usuario.ciudad}"/>
+                    <p:outputLabel for="numero" value="Número de Identificación:"/>
+                    <p:outputLabel id="numero" value="#{calendarioBean.consulta.usuario.documento}"/>
                     <p:row class="titulo-grupo">
                         <p:column class="ui-grid-col-12">
                             <p:divider align="left">
@@ -120,7 +121,8 @@
                             <p:outputLabel value="Su Firma" />
                             <br/>
                             <p:outputPanel id="output">
-                                <p:signature class="firma" readonly="true" value="#{calendarioBean.consulta.usuario.firmaUsuario}"
+                                <p:signature class="firma" readonly="true"
+                                             value="#{calendarioBean.consulta.usuario.firma}"
                                              backgroundColor="#eaeaea" color="#03a9f4"/>
                             </p:outputPanel>
                         </p:column>
@@ -132,8 +134,9 @@
                     </p:row>
                     <p:row>
                         <p:column class="ui-grid-col-12">
-                            <p:fileUpload listener="#{calendarioBean.comprobantePago}" mode="advanced" dragDropSupport="true"
-                                          update="mensaje" sizeLimit="1000000" fileLimit="3" allowTypes="/(\.|\/)(pdf|jpe?g|png)$/"
+                            <p:fileUpload listener="#{calendarioBean.comprobantePago}" mode="advanced"
+                                          dragDropSupport="true" allowTypes="/(\.|\/)(pdf|jpe?g|png)$/"
+                                          update="mensaje" sizeLimit="1000000" fileLimit="3"
                                           validateContentType="true" accept=".jpg,.jpeg,.png,.pdf"
                                           onupload="return confirm('Are you sure?')"/>
                         </p:column>

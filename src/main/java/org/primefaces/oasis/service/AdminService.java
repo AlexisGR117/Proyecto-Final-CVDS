@@ -39,7 +39,7 @@ public class AdminService {
     }
 
     /**
-     * Obtiene la configuración dada la propiedad.
+     * Obtiene el administrador dada su id.
      * @param adminId Cadena con el nombre del administrador.
      * @return El administrador que tiene el nombre dado.
      */
@@ -51,7 +51,7 @@ public class AdminService {
     }
 
     /**
-     * Da todos los administradores que están en la base de datos.
+     * Da todos los administradores que estan en la base de datos.
      * @return Lista con los administradores disponibles.
      */
     public List<Admin> getAllAdmin(){
@@ -79,14 +79,13 @@ public class AdminService {
     }
 
     /**
-     * Método que valida que el usuario exista en la base de datos y permite el acceso
-     * NOTA: SE DEBE COLOCAR A DONDE SE VA DIRIGIR DESPUES DE QUE SE VALIDE EL ACCESO
+     * Metodo que valida que el usuario exista en la base de datos y permite el acceso
      * @exception AdminException INVALID_PASSWORD, si el usuario existe pero la contrasena dada es incorrecta.
      *                             INVALID_NAME, si no existe un administrador con ese nombre de usuario.
      */
     public void login(String nombre, String contrasena) throws AdminException {
-        if (nombre == null) throw new AdminException(AdminException.NOMBRE_VACIO);
-        if (contrasena == null) throw new AdminException(AdminException.CONTRASENA_VACIA);
+        if (nombre == "") throw new AdminException(AdminException.NOMBRE_VACIO);
+        if (contrasena == "") throw new AdminException(AdminException.CONTRASENA_VACIA);
         Admin admin = getAdmin(nombre);
         if (admin == null) throw new AdminException(AdminException.NOMBRE_INVALIDO);
         else if (!admin.getContrasena().equals(contrasena)) {

@@ -1,6 +1,5 @@
 package org.primefaces.oasis.service;
 
-import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.file.*;
 import org.primefaces.oasis.data.Consulta;
 import org.primefaces.oasis.data.ConsultaId;
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -20,8 +18,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Clase que se encarga de la logica de negocio de la aplicacion relacionada con las consultas.
+ */
 @Service
 public class ConsultaService implements Serializable {
+
     public static final int LIMITE_INFERIOR = 7;
     public static final int LIMITE_SUPERIOR = 15;
     public static final int INTERVALO_MINUTOS = 60;
@@ -29,27 +31,60 @@ public class ConsultaService implements Serializable {
     public static final int PRECIO = 150;
     public static final List<Integer> DIAS_DESHABILITADOS = Arrays.asList(0, 6);
     private final ConsultaRepository consultaRepository;
+
+    /**
+     * Constructor para objetos de clase ConsultaService.
+     * @param consultaRepository Repositorio que accede a la base de datos.
+     */
     @Autowired
-    public ConsultaService(ConsultaRepository consultaRepository){
+    public ConsultaService(ConsultaRepository consultaRepository) {
         this.consultaRepository = consultaRepository;
     }
-    public Consulta addConsulta(Consulta consulta){
+
+    /**
+     * Agrega un nueva consulta a la base de datos.
+     * @param consulta Consulta que se quiere agregar.
+     * @return La consulta que se agregó a la base de datos.
+     */
+    public Consulta addConsulta(Consulta consulta) throws ConsultasException {
+        if(consulta.getId().getFecha() == null) throw new ConsultasException(ConsultasException.CONSULTA_SIN_FECHA);
         return consultaRepository.save(consulta);
     }
-    public Optional<Consulta> getConsulta(ConsultaId consultaId){
+
+    /**
+     * Obtiene la consulta dada su id.
+     * @param consultaId Identificador de la consulta de tipo ConsultaId.
+     * @return La consulta que tiene la identificicaion dada.
+     */
+    public Optional<Consulta> getConsulta(ConsultaId consultaId) {
         return consultaRepository.findById(consultaId);
     }
-    public List<Consulta> getAllConsultas(){
+
+    /**
+     * Da todas las consultas que están en la base de datos.
+     * @return Lista con las consultas disponibles.
+     */
+    public List<Consulta> getAllConsultas() {
         return consultaRepository.findAll();
     }
 
+    /**
+     * Actualiza una consulta en la base de datos.
+     * @param consulta Consulta que se quiere actualizar.
+     * @return La nueva consulta actualizada.
+     */
     public Consulta updateConsulta(Consulta consulta){
         if(consultaRepository.existsById(consulta.getId())){
             return consultaRepository.save(consulta);
         }
         return null;
     }
-    public void deleteConsulta(ConsultaId consultaId){
+
+    /**
+     * Elimina una consulta de la base de datos.
+     * @param consultaId Identificador de la consulta.
+     */
+    public void deleteConsulta(ConsultaId consultaId) {
         consultaRepository.deleteById(consultaId);
     }
 
@@ -63,7 +98,7 @@ public class ConsultaService implements Serializable {
         return validador(consultas, fecha);
     }
 
-    /**
+    /*
      * Valida dentro de las consultas las que su Id su fecha sea la que estoy buscando
      * @param consultas Listado de todas las consultas
      * @param fecha Fecha dada para comparar
@@ -79,8 +114,9 @@ public class ConsultaService implements Serializable {
         return horaSeteada(horasNuevas);
     }
 
-    /**
-     * Este metodo se encarga de verificar que horas no han sido tomadas para mostrarlas como un nuevo posible regisatro
+    /*
+     * Este metodo se encarga de verificar que horas no han sido tomadas para mostrarlas como un nuevo posible
+     * registro
      * @param valoresPosibles
      * @return
      * @throws ConsultasException
@@ -88,13 +124,12 @@ public class ConsultaService implements Serializable {
     private List<String> horaSeteada(List<String> valoresPosibles) throws ConsultasException {
         List<String> horas = new ArrayList<>();
         LocalTime clock = LocalTime.of(LIMITE_INFERIOR,0,0);
-        horas.add(clock.toString());
-        int i = (LIMITE_INFERIOR * 100) + INTERVALO_MINUTOS;
-        while (i < LIMITE_SUPERIOR *100){
-            clock = clock.plusMinutes(INTERVALO_MINUTOS);
+        int i = (LIMITE_INFERIOR * 60);
+        while (i <= LIMITE_SUPERIOR * 60) {
             if(!valoresPosibles.contains(clock.toString())){
                 horas.add(clock.toString());
             }
+            clock = clock.plusMinutes(INTERVALO_MINUTOS);
             i += INTERVALO_MINUTOS;
         }
         if(horas.isEmpty()){
@@ -103,7 +138,14 @@ public class ConsultaService implements Serializable {
         return horas;
     }
 
-    public File convertirFile(UploadedFile uploadedFile) throws Exception {
+    /**
+     * Convirte un UploadFile a File
+     * AUN NO SE HA TERMINADO
+     * @param uploadedFile Archivo que se quiere convertir a File
+     * @return El archivo en tipo File.
+     * @throws ConsultasException ERROR_ARCHIVO, si al convertir archivo hay un error.
+     */
+    public File convertirFile(UploadedFile uploadedFile) throws ConsultasException {
         try {
             byte[] bytes = uploadedFile.getContent();
             String filename = uploadedFile.getFileName();

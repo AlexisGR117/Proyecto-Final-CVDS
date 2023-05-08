@@ -15,7 +15,7 @@ import javax.faces.context.FacesContext;
 import java.io.Serializable;
 
 /**
- * Clase que permite tener el usuario como objeto además de conectar y añadir usuarios a la base de datos
+ * Clase que permite tener el usuario como objeto ademas de conectar y anadir usuarios a la base de datos
  * fecha: 4/27/2023
  * @author Daniel Santiago Gomez Zabala
  */
@@ -46,7 +46,7 @@ public class AdminBean implements Serializable {
     }
 
     /**
-     * Método que verifica que el usuario exista en la base de datos y permite el acceso desde el service.
+     * Metodo que verifica que el usuario exista en la base de datos y permite el acceso desde el service.
      * @return La página a la que se va a redirigir si el login es exitoso.
      */
     public String login() {
@@ -61,7 +61,7 @@ public class AdminBean implements Serializable {
     }
 
     /**
-     * Método donde se puede añadir usuarios a la base de datos y además los muestra en consola.
+     * Metodo donde se puede anadir usuarios a la base de datos y además los muestra en consola.
      */
     @Bean
     public CommandLineRunner currentUser() {

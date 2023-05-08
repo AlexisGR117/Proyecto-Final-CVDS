@@ -1,41 +1,26 @@
 package org.primefaces.oasis.controller;
 
-import javax.faces.application.FacesMessage;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-import javax.annotation.PostConstruct;
 
-import org.primefaces.PrimeFaces;
 import org.primefaces.model.DefaultScheduleModel;
 import org.primefaces.model.file.UploadedFile;
-import org.primefaces.oasis.data.ConsultaId;
-import org.primefaces.oasis.data.Usuario;
 import org.primefaces.oasis.service.ConsultaService;
 import org.primefaces.oasis.service.EstadoConsulta;
 import org.primefaces.oasis.service.UsuarioService;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.annotation.ApplicationScope;
 
-import lombok.EqualsAndHashCode;    
 import lombok.Getter;
 import lombok.Setter;
 
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DefaultScheduleEvent;
-import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
 import org.primefaces.oasis.data.Consulta;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -44,7 +29,7 @@ import java.util.List;
  */
 @Component
 @ManagedBean(name = "calendarioBean")
-@ApplicationScope
+@ApplicationScoped
 @Getter @Setter
 public class CalendarioBean {
     
@@ -131,7 +116,7 @@ public class CalendarioBean {
             LocalDateTime fechaInicial = c.getId().getFecha().atTime(c.getId().getHora());
             LocalDateTime fechaFinal = fechaInicial.plusMinutes(ConsultaService.INTERVALO_MINUTOS);
             evento = DefaultScheduleEvent.builder()
-                    .title(c.getUsuario().getNombreUsuario())
+                    .title(c.getUsuario().getNombre())
                     .startDate(fechaInicial)
                     .endDate(fechaFinal)
                     .description(c.getRazonConsulta())

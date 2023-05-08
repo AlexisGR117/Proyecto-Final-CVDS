@@ -1,6 +1,5 @@
 package org.primefaces.oasis.service;
 
-import jdk.vm.ci.meta.Local;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,6 +9,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.primefaces.oasis.data.Consulta;
 import org.primefaces.oasis.data.ConsultaId;
 import org.primefaces.oasis.data.Usuario;
+import org.primefaces.oasis.exceptions.AdminException;
+import org.primefaces.oasis.exceptions.ConsultasException;
 import org.primefaces.oasis.repository.ConsultaRepository;
 
 import java.util.ArrayList;
@@ -18,13 +19,11 @@ import java.util.Optional;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class ConsultaSTest {
+class ConsultaSTest {
     @Mock
     private ConsultaRepository consultaRepository;
     @InjectMocks
@@ -37,11 +36,11 @@ public class ConsultaSTest {
 
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         usuario = new Usuario();
-        usuario.setUsuaioId(1L);
-        usuario.setNombreUsuario("Juan Perez");
-        usuario.setEmailUsuario("juan.perez@example.com");
+        usuario.setUsuarioId(1L);
+        usuario.setNombre("Juan Perez");
+        usuario.setEmail("juan.perez@example.com");
         consulta = new Consulta();
         consulta.setId(new ConsultaId(date,time));
         consulta.setUsuario(usuario);
@@ -49,22 +48,27 @@ public class ConsultaSTest {
     }
 
     @Test
-    public void testAnadirConsulta(){
-        when(consultaRepository.save(any(Consulta.class))).thenReturn(consulta);
-        Consulta consultaGuardada = consultaService.addConsulta(consulta);
-        verify(consultaRepository, times(1)).save(consulta);
-        assertEquals(consulta,consultaGuardada);
+    void testAnadirConsulta() {
+        try {
+            when(consultaRepository.save(any(Consulta.class))).thenReturn(consulta);
+            Consulta consultaGuardada = consultaService.addConsulta(consulta);
+            verify(consultaRepository, times(1)).save(consulta);
+            assertEquals(consulta,consultaGuardada);
+        } catch (Exception e){
+            fail("Threw a exception");
+        }
     }
 
     @Test
-    public void testObtenerConsulta(){
+    void testObtenerConsulta() {
         when(consultaRepository.findById(any(ConsultaId.class))).thenReturn(Optional.of(consulta));
         Optional<Consulta> consultaEncontrada = consultaService.getConsulta(new ConsultaId(date, time));
         verify(consultaRepository, times(1)).findById(new ConsultaId(date, time));
         assertEquals(consulta,consultaEncontrada.get());
     }
+
     @Test
-    public void testObtenerTodasLasConsultas(){
+    void testObtenerTodasLasConsultas() {
         List<Consulta> consultasL = new ArrayList<>();
         consultasL.add(consulta);
         when(consultaRepository.findAll()).thenReturn(consultasL);
@@ -72,8 +76,9 @@ public class ConsultaSTest {
         verify(consultaRepository, times(1)).findAll();
         assertEquals(consultasL,consultasEncontradas);
     }
+
     @Test
-    public void testActualizarConsultas(){
+    void testActualizarConsultas() {
         when(consultaRepository.existsById(any(ConsultaId.class))).thenReturn(true);
         when(consultaRepository.save(any(Consulta.class))).thenReturn(consulta);
         Consulta consultaActualizado = consultaService.updateConsulta(consulta);
@@ -81,8 +86,9 @@ public class ConsultaSTest {
         verify(consultaRepository, times(1)).save(consulta);
         assertEquals(consulta,consultaActualizado);
     }
+
     @Test
-    public void testEliminarConsulta(){
+    void testEliminarConsulta() {
         doNothing().when(consultaRepository).deleteById(any(ConsultaId.class));
         consultaService.deleteConsulta(new ConsultaId(date, time));
 
@@ -90,7 +96,7 @@ public class ConsultaSTest {
     }
 
     @Test
-    public void testDeberiaDarmeHoras(){
+    void testDeberiaDarmeHoras() {
         try {
             Consulta con1 = new Consulta();
             con1.setId(new ConsultaId(LocalDate.of(2023,5,6), LocalTime.of(7,0,0)));
@@ -105,7 +111,7 @@ public class ConsultaSTest {
             when(consultaRepository.findAll()).thenReturn(consultas);
             LocalDate fecha = LocalDate.of(2023,5,6);
             List<String> horas = consultaService.getConsultasFecha(fecha);
-            assertTrue(!horas.contains(LocalTime.of(7,30,0).toString()));
+            assertFalse(horas.contains(LocalTime.of(7,30,0).toString()));
         } catch (Exception e){
             fail("Threw a exception");
         }

@@ -1,6 +1,9 @@
 package org.primefaces.oasis.exceptions;
 
-public class ConsultasException extends Exception{
+/**
+ * Clase excepcion de la clase ConsultaService.
+ */
+public class ConsultasException extends Exception {
 
     public static final String CONSULTA_SIN_HORA = "No se puede crear una consulta sin hora seleccionada";
     public static final String CONSULTA_SIN_FECHA = "No se puede crear una consulta sin una fecha definida";

@@ -1,6 +1,7 @@
 package org.primefaces.oasis.exceptions;
+
 /**
- * Clase excepción de la clase AdminService.
+ * Clase excepcion de la clase AdminService.
  */
 public class AdminException extends Exception {
 

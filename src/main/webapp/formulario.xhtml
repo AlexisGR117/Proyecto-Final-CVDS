@@ -84,7 +84,7 @@
                             <p:outputLabel id="title" value="Horarios disponibles #{usuarioDataBean.fechaString()}"/>
                             <br/>
                             <p:dataScroller id="scroller" var="hora" value="#{usuarioDataBean.consultasFecha}"
-                                            mode="inline" scrollHeight="400" style="width:50%" class="centrar-horizontal">
+                                            mode="inline" scrollHeight="400" style="width:70%" class="centrar-horizontal">
                                 <p:commandButton  id="estilo" value="#{hora}" type="submit"
                                                  actionListener="#{usuarioDataBean.setHora(hora)}"
                                                  update="mensaje horario scroller"
@@ -149,14 +149,14 @@
                     <p:row class="centrar-texto">
                         <p:column class="ui-grid-col-12 ">
                             <p:commandButton id="enviar" type="submit" value="Programar Consulta"
-                                             icon="pi pi-calendar-plus" class="programar" update="consulta" process="@form"
-                                             action="#{usuarioDataBean.programarConsulta}"
+                                             icon="pi pi-calendar-plus" class="programar" update="consulta"
+                                             process="@form" action="#{usuarioDataBean.programarConsulta}"
                                              disabled="#{usuarioDataBean.seleccionado eq false}"/>
                         </p:column>
                     </p:row>
                 </p:panelGrid>
             </h:form>
-            <p:messages id="consulta" closable="true"/>
+            <p:messages id="consulta" showDetail="true" closable="true"/>
             <p:messages id="horario" showDetail="true"/>
         </div>
 

@@ -1,46 +1,42 @@
 package org.primefaces.oasis.data;
 
 import lombok.*;
-import org.primefaces.model.file.UploadedFile;
 import org.primefaces.oasis.service.EstadoConsulta;
 
 import javax.persistence.*;
 import java.io.File;
-import java.time.LocalDate;
 import java.util.StringJoiner;
 
 
 /**
- * el @Table es para que si so si asi se llama la tabla en la base de datos.
- * Lombock generara  equals y hashcode automaticamente es decir no aparece ene l codigo pero en running time
+ * El @Table es para que si so si asi se llama la tabla en la base de datos.
+ * Lombock generara equals y hashcode automaticamente es decir no aparece ene l codigo pero en running time
  * existen y pueden ser llamados
  * Lombock generara los getter y setters segun se modificquen es decir existen mas  no aparecen el codigo
  * Lombock creara el consstructor con solo algunos de los atributos estos son los que tienen la etiqueta @nOnULL
  */
-
 @Entity
 @Table(name="CONSULTAS")
 @EqualsAndHashCode
 @Getter @Setter
 public class Consulta {
+
     @EmbeddedId
     private ConsultaId id;
     @Column(name = "RAZON_CONSULTA", length = 1000)
     private String razonConsulta;
-
     @Column(name = "COMPROBANTE_PAGO")
     private File comprobandoPago;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "ESTADO_CONSULTA")
     private EstadoConsulta estadoConsulta;
 
     @Column(name = "OBSERVACIONES", length = 1000)
     private String observaciones;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
+
     /**
      * Constructor vacio
      */
