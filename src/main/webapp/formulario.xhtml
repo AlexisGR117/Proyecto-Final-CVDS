@@ -58,7 +58,11 @@
                     <p:row>
                         <p:column class="ui-grid-col-12">
                             <p:inputTextarea rows="5" id="razon" value="#{usuarioDataBean.razonConsulta}"
-                                             autoResize="false" style="max-width: 100%" required="true"/>
+                                             counter="display" maxlength="1000"
+                                             counterTemplate="{0} caracteres restantes." autoResize="false"
+                                             style="max-width: 100%" required="true"/>
+                            <br/>
+                            <h:outputText id="display"/>
                         </p:column>
                     </p:row>
                     <p:row class="centrar-texto">

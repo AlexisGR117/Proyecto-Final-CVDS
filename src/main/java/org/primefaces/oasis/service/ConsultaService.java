@@ -1,5 +1,7 @@
 package org.primefaces.oasis.service;
 
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.file.*;
 import org.primefaces.oasis.data.Consulta;
 import org.primefaces.oasis.data.ConsultaId;
 import org.primefaces.oasis.exceptions.ConsultasException;
@@ -7,6 +9,9 @@ import org.primefaces.oasis.repository.ConsultaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -55,7 +60,7 @@ public class ConsultaService implements Serializable {
      */
     public List<String> getConsultasFecha(LocalDate fecha) throws ConsultasException {
         List<Consulta> consultas = getAllConsultas();
-        return(validador(consultas, fecha));
+        return validador(consultas, fecha);
     }
 
     /**
@@ -96,5 +101,19 @@ public class ConsultaService implements Serializable {
             throw new ConsultasException(ConsultasException.LLENO_DE_CONSULTAS);
         }
         return horas;
+    }
+
+    public File convertirFile(UploadedFile uploadedFile) throws Exception {
+        try {
+            byte[] bytes = uploadedFile.getContent();
+            String filename = uploadedFile.getFileName();
+            File file = new File(filename);
+            try (FileOutputStream fos = new FileOutputStream(file)) {
+                fos.write(bytes);
+            }
+            return file;
+        } catch (Exception e) {
+            throw new ConsultasException(ConsultasException.ERROR_ARCHIVO);
+        }
     }
 }

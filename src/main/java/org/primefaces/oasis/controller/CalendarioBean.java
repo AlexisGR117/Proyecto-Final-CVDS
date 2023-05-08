@@ -3,6 +3,7 @@ package org.primefaces.oasis.controller;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.annotation.PostConstruct;
 
@@ -12,6 +13,7 @@ import org.primefaces.model.file.UploadedFile;
 import org.primefaces.oasis.data.ConsultaId;
 import org.primefaces.oasis.data.Usuario;
 import org.primefaces.oasis.service.ConsultaService;
+import org.primefaces.oasis.service.EstadoConsulta;
 import org.primefaces.oasis.service.UsuarioService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -28,6 +30,8 @@ import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
 import org.primefaces.oasis.data.Consulta;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -51,7 +55,7 @@ public class CalendarioBean {
     private DefaultScheduleEvent<?> eventoSeleccionado = new DefaultScheduleEvent<>();
     private HashMap<DefaultScheduleEvent<?>, Consulta> eventosConsultas = new HashMap<>();
     private UploadedFile comprobantePago;
-    private String estadoConsulta;
+    private EstadoConsulta estadoConsulta;
     private String observacionesConsulta;
 
     /**
@@ -62,10 +66,9 @@ public class CalendarioBean {
         eventoSeleccionado = seleccionEvento.getObject();
         consulta = eventosConsultas.get(eventoSeleccionado);
         estadoConsulta = consulta.getEstadoConsulta();
-        /*
-        observacionesConsulta = consulta.getObservacionesConsulta();
-        comprobantePago = consulta.getComprobandoPago();
-        */
+        observacionesConsulta = consulta.getObservaciones();
+        //Falta obtener el comprobante de pago
+        //Ver como pasar File a UploadedFile
     }
 
     /**
@@ -79,10 +82,10 @@ public class CalendarioBean {
             eventoSeleccionado.setBorderColor(color);
             modelo.updateEvent(eventoSeleccionado);
         }
-        //Agregar el siguiente atributo a Consulta
-        //consulta.setObservacionesConsulta(observacionesConsulta):
-        //Cambiar el tipo de atributo de comprobantePago en consulta
-        //consulta.setComprobandoPago(comprobantePago);
+        //Falta guardar el comprobante de pago
+        //Ver como pasar UploadedFile a File
+        //O como guardar un UploadedFile
+        consulta.setObservaciones(observacionesConsulta);
         consultaService.updateConsulta(consulta);
     }
 
@@ -91,16 +94,16 @@ public class CalendarioBean {
      * @param estadoConsulta Estado de la consulta que peude ser Agendado, Pagado o Atendido.
      * @return String con el hexadecimal del color que representa el estado de la consulta.
      */
-    public String colorConsulta(String estadoConsulta) {
+    public String colorConsulta(EstadoConsulta estadoConsulta) {
         String color;
         switch (estadoConsulta) {
-            case "Agendado":
+            case AGENDADA:
                 color = "#FFFF00";
                 break;
-            case "Pagado":
+            case PAGADA:
                 color = "#27AE60";
                 break;
-            case "Atendido":
+            case ATENDIDA:
                 color = "#c2c2c2";
                 break;
             default:
@@ -123,7 +126,7 @@ public class CalendarioBean {
         for (Consulta c: consultas){
             color = colorConsulta(c.getEstadoConsulta());
             LocalDateTime fechaInicial = c.getId().getFecha().atTime(c.getId().getHora());
-            LocalDateTime fechaFinal = fechaInicial.plusMinutes(ConsultaService.intervaloMinutos);
+            LocalDateTime fechaFinal = fechaInicial.plusMinutes(ConsultaService.INTERVALO_MINUTOS);
             evento = DefaultScheduleEvent.builder()
                     .title(c.getUsuario().getNombreUsuario())
                     .startDate(fechaInicial)
@@ -141,5 +144,13 @@ public class CalendarioBean {
 
     public void initPage() {
         crearEventos();
+    }
+
+    public void setEstadoConsulta(String estadoConsulta) {
+        this.estadoConsulta = EstadoConsulta.valueOf(estadoConsulta);
+    }
+
+    public String getEstadoConsulta() {
+        return String.valueOf(estadoConsulta);
     }
 }

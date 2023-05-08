@@ -20,6 +20,7 @@ import java.time.LocalTime;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -90,21 +91,23 @@ public class ConsultaSTest {
 
     @Test
     public void testDeberiaDarmeHoras(){
-        Consulta con1 = new Consulta();
-        con1.setId(new ConsultaId(LocalDate.of(2023,5,6), LocalTime.of(7,0,0)));
-        Consulta con2 = new Consulta();
-        con2.setId(new ConsultaId(LocalDate.of(2023,5,6), LocalTime.of(7,30,0)));
-        Consulta con3 = new Consulta();
-        con3.setId(new ConsultaId(LocalDate.of(2023,5,6), LocalTime.of(8,0,0)));
-        ArrayList<Consulta> consultas = new ArrayList<>();
-        consultas.add(con1);
-        consultas.add(con2);
-        consultas.add(con3);
-
-        when(consultaRepository.findAll()).thenReturn(consultas);
-        LocalDate fecha = LocalDate.of(2023,5,6);
-        List<String> horas = consultaService.getConsultasFecha(fecha);
-
-        assertTrue(!horas.contains(LocalTime.of(7,30,0).toString()));
+        try {
+            Consulta con1 = new Consulta();
+            con1.setId(new ConsultaId(LocalDate.of(2023,5,6), LocalTime.of(7,0,0)));
+            Consulta con2 = new Consulta();
+            con2.setId(new ConsultaId(LocalDate.of(2023,5,6), LocalTime.of(7,30,0)));
+            Consulta con3 = new Consulta();
+            con3.setId(new ConsultaId(LocalDate.of(2023,5,6), LocalTime.of(8,0,0)));
+            ArrayList<Consulta> consultas = new ArrayList<>();
+            consultas.add(con1);
+            consultas.add(con2);
+            consultas.add(con3);
+            when(consultaRepository.findAll()).thenReturn(consultas);
+            LocalDate fecha = LocalDate.of(2023,5,6);
+            List<String> horas = consultaService.getConsultasFecha(fecha);
+            assertTrue(!horas.contains(LocalTime.of(7,30,0).toString()));
+        } catch (Exception e){
+            fail("Threw a exception");
+        }
     }
 }

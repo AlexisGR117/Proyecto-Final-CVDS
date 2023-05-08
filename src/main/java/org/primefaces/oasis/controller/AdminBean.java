@@ -58,7 +58,7 @@ public class AdminBean implements Serializable {
                     e.getMessage(), null));
             return null;
         }
-        return "dashboard.xhtml";
+        return "consultas.xhtml";
     }
 
     /**

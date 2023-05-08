@@ -24,16 +24,17 @@ import java.util.StringJoiner;
 public class Consulta {
     @EmbeddedId
     private ConsultaId id;
-    @Column(name = "RAZON_CONSULTA")
+    @Column(name = "RAZON_CONSULTA", length = 1000)
     private String razonConsulta;
 
     @Column(name = "COMPROBANTE_PAGO")
     private File comprobandoPago;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "ESTADO_CONSULTA")
     private EstadoConsulta estadoConsulta;
 
-    @Column(name = "OBSERVACIONES")
+    @Column(name = "OBSERVACIONES", length = 1000)
     private String observaciones;
 
     @ManyToOne(fetch = FetchType.EAGER)

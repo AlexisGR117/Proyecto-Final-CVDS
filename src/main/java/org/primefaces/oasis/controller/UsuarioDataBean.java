@@ -147,6 +147,7 @@ public class UsuarioDataBean implements Serializable {
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "Seleccione horario", "No ha seleccionado el horario de la consulta");
             FacesContext.getCurrentInstance().addMessage(null, message);
+            return null;
         } else {
             Usuario usuarioNuevo = new Usuario(nombre, email, telefono, ciudad, noIdentificacion, firma);
             usuarioService.addUsuario(usuarioNuevo);
@@ -158,7 +159,7 @@ public class UsuarioDataBean implements Serializable {
             message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Consulta",
                     " Se ha agendado exitosamente su cita!");
             PrimeFaces.current().dialog().showMessageDynamic(message);
+            return "inicio.xhtml";
         }
-        return null;
     }
 }
