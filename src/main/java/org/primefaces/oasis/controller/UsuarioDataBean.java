@@ -17,6 +17,7 @@ import org.springframework.web.context.annotation.ApplicationScope;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -31,7 +32,7 @@ import java.util.Locale;
  */
 @Component
 @ManagedBean(name = "usuarioDataBean")
-@ApplicationScope
+@ViewScoped
 @Getter @Setter
 public class UsuarioDataBean implements Serializable {
     @Autowired

@@ -5,13 +5,14 @@ import org.primefaces.oasis.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Clase que se encarga de la lógica de negocio de la aplicacion relacionada con los usuarios.
  */
 @Service
-public class UsuarioService {
+public class UsuarioService implements Serializable {
     private final UsuarioRepository usuarioRepository;
     @Autowired
     public UsuarioService(UsuarioRepository usuarioRepository) {

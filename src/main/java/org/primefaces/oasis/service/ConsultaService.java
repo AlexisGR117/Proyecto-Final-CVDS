@@ -8,6 +8,8 @@ import org.primefaces.oasis.repository.ConsultaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.Serializable;
@@ -23,6 +25,9 @@ import java.util.Optional;
  */
 @Service
 public class ConsultaService implements Serializable {
+
+    @PersistenceContext
+    EntityManager entityManager;
 
     public static final int LIMITE_INFERIOR = 7;
     public static final int LIMITE_SUPERIOR = 15;
@@ -94,8 +99,10 @@ public class ConsultaService implements Serializable {
      * @return un listado con las consultas de esa fecha
      */
     public List<String> getConsultasFecha(LocalDate fecha) throws ConsultasException {
-        List<Consulta> consultas = getAllConsultas();
-        return validador(consultas, fecha);
+        List<Consulta> consultas = entityManager.createQuery("SELECT c FROM Consulta c Where c.id.fecha = :valName")
+                .setParameter("valName", fecha)
+                .getResultList();
+        return validador(consultas);
     }
 
     /*
@@ -104,13 +111,16 @@ public class ConsultaService implements Serializable {
      * @param fecha Fecha dada para comparar
      * @return Listado con las consultas con la fecha correcto.
      */
-    private List<String> validador(List<Consulta> consultas, LocalDate fecha) throws ConsultasException {
+    private List<String> validador(List<Consulta> consultas) throws ConsultasException {
         List<String> horasNuevas = new ArrayList<>();
-        for (Consulta i : consultas){
+        for(Consulta i :  consultas){
+            horasNuevas.add(i.getId().getHora().toString());
+        }
+        /*for (Consulta i : consultas){
             if(i.getId().getFecha().equals(fecha)) {
                 horasNuevas.add(i.getId().getHora().toString());
             }
-        }
+        }*/
         return horaSeteada(horasNuevas);
     }
 

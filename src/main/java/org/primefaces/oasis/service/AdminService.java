@@ -84,8 +84,8 @@ public class AdminService {
      *                             INVALID_NAME, si no existe un administrador con ese nombre de usuario.
      */
     public void login(String nombre, String contrasena) throws AdminException {
-        if (nombre == "") throw new AdminException(AdminException.NOMBRE_VACIO);
-        if (contrasena == "") throw new AdminException(AdminException.CONTRASENA_VACIA);
+        if (nombre.equals("")) throw new AdminException(AdminException.NOMBRE_VACIO);
+        if (contrasena.equals("")) throw new AdminException(AdminException.CONTRASENA_VACIA);
         Admin admin = getAdmin(nombre);
         if (admin == null) throw new AdminException(AdminException.NOMBRE_INVALIDO);
         else if (!admin.getContrasena().equals(contrasena)) {
