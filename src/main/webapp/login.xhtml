@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      lang="es">
+    <h:head>
+        <title>Login</title>
+        <link rel="stylesheet" href="login.css"/>
+    </h:head>
+    <h:body id="contendor">
+        <p:growl id="mensaje" showDetail="true"/>
+        <h:form id="login">
+            <span class="titulo">Calendario de Consultas</span>
+            <div class="ui-fluid">
+                <div class="padding">
+                    <p:inputText value="#{adminBean.adminNombre}" placeholder="Username" />
+                </div>
+                <div class="padding">
+                    <p:password value="#{adminBean.contrasena}" placeholder="Password" feedback="false"/>
+                </div>
+                <div class="padding">
+                    <p:commandButton type="submit" action="#{adminBean.login}" value="Sign In" icon="pi pi-user"
+                                     update="mensaje" />
+                </div>
+            </div>
+        </h:form>
+    </h:body>
+</html>

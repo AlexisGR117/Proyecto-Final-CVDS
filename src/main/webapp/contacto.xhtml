@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      lang="es">
+    <h:head>
+        <link href="diseño.css" rel="stylesheet"/>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+        </f:facet>
+        <title>PrimeFaces Omega</title>
+    </h:head>
+    <h:body class="bodyp">
+        <div style="background-color:grey;">
+            <div style="background-color:transparent;">
+                <div class="card">
+                    <h:form>
+                        <p:menubar>
+                            <p:menuitem outcome="inicio" value="Inicio" icon="pi pi-home"/>
+                            <p:divider layout="vertical"/>
+                            <p:menuitem outcome="nosotros" value="Nosotros" icon="pi pi-user"/>
+                            <p:divider layout="vertical"/>
+                            <p:submenu label="servicios" value="Servicios"  icon="pi pi-fw pi-book">
+                                <p:menuitem value="Perdones"/>
+                                <p:menuitem value="Convertirse en un ciudadano americano"/>
+                                <p:menuitem value="Tarjeta verde a través de una oferta de empleo"/>
+                                <p:menuitem value="Visa de prometido(K1)"/>
+                                <p:menuitem value="Peticiones familiares"/>
+                                <p:menuitem value="Permisos de trabajo"/>
+                                <p:menuitem value="Ajuste de status"/>
+                                <p:menuitem value="Test"/>
+                            </p:submenu>
+                            <p:divider layout="vertical"/>
+                            <p:menuitem value="Contactanos" icon="pi pi-phone"/>
+                            <f:facet name="options">
+                                <p:button outcome="login" value="Log in" icon="pi pi-fw pi-sign-out"
+                                          styleClass="ui-button-info"/>
+                            </f:facet>
+                        </p:menubar>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+        <div class="divp">
+            <div class="contacto">
+                <h3 style="text-align: center;">Consultas en persona</h3>
+                <br/>
+                <p class="fontcontacto">email</p>
+                <br/>
+                <p class="fontcontacto1">inmigracionayuda@gmail.com</p>
+                <br/>
+                <p:divider layout="horizontal"/>
+                <br/>
+                <p class="fontcontacto">teléfono</p>
+                <br/>
+                <p class="fontcontacto1">+1 773.309.2121</p>
+                <br/>
+                <p:divider layout="horizontal"/>
+                <br/>
+                <p class="fontcontacto">
+                    <span>Dirección</span>
+                </p>
+                <br/>
+                <p class="fontcontacto1">1730 Park St Suite 203 Naperville IL 60563</p>
+                <br/>
+            </div>
+            <div class="cita">
+                <h2 class="fontcita">Formulario de contacto</h2>
+                <br/>
+                <br/>
+                <p class="fontcita1">Si desea una consulta en las oficinas de la abogada Liliana Jones o una video</p>
+                <p class="fontcita1">llamada por favor de clic en el siguiente botón y responda todas las</p>
+                <p class="fontcita1">preguntas.</p>
+                <br/>
+                <p class="fontcita1">Nos pondremos en contacto con usted.</p>
+                <br/>
+                <br/>
+                <div>
+                    <p:button class="boton1" outcome="formulario" value="Agende su consulta"/>
+                </div>
+                <br/><br/>
+            </div>
+        </div>
+    </h:body>
+</html>
