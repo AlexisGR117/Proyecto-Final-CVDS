@@ -104,15 +104,15 @@ class ConsultaSTest {
             con2.setId(new ConsultaId(LocalDate.of(2023,5,6), LocalTime.of(7,30,0)));
             Consulta con3 = new Consulta();
             con3.setId(new ConsultaId(LocalDate.of(2023,5,6), LocalTime.of(8,0,0)));
+            LocalDate fecha = LocalDate.of(2023,5,6);
             ArrayList<Consulta> consultas = new ArrayList<>();
             consultas.add(con1);
             consultas.add(con2);
             consultas.add(con3);
-            when(consultaRepository.findAll()).thenReturn(consultas);
-            LocalDate fecha = LocalDate.of(2023,5,6);
+            when(consultaRepository.findByIdFecha(fecha)).thenReturn(consultas);
             List<String> horas = consultaService.getConsultasFecha(fecha);
             assertFalse(horas.contains(LocalTime.of(7,30,0).toString()));
-        } catch (Exception e){
+        } catch (ConsultasException e){
             fail("Threw a exception");
         }
     }

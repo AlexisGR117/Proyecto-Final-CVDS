@@ -1,5 +1,6 @@
 package org.primefaces.oasis.service;
 
+
 import org.primefaces.model.file.*;
 import org.primefaces.oasis.data.Consulta;
 import org.primefaces.oasis.data.ConsultaId;
@@ -99,9 +100,7 @@ public class ConsultaService implements Serializable {
      * @return un listado con las consultas de esa fecha
      */
     public List<String> getConsultasFecha(LocalDate fecha) throws ConsultasException {
-        List<Consulta> consultas = entityManager.createQuery("SELECT c FROM Consulta c Where c.id.fecha = :valName")
-                .setParameter("valName", fecha)
-                .getResultList();
+        List<Consulta> consultas = consultaRepository.findByIdFecha(fecha);
         return validador(consultas);
     }
 
