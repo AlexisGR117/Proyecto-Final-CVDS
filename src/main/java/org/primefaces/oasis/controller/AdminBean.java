@@ -1,5 +1,7 @@
 package org.primefaces.oasis.controller;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.primefaces.oasis.data.Admin;
 import org.primefaces.oasis.exceptions.AdminException;
 import org.primefaces.oasis.service.AdminService;
@@ -22,6 +24,7 @@ import java.io.Serializable;
 @Component
 @ManagedBean(name = "adminBean")
 @SessionScoped
+@Setter @Getter
 public class AdminBean implements Serializable {
 
     @Autowired
@@ -29,21 +32,6 @@ public class AdminBean implements Serializable {
     private String adminNombre;
     private String contrasena;
 
-    public String getAdminNombre() {
-        return adminNombre;
-    }
-
-    public void setAdminNombre(String adminNombre) {
-        this.adminNombre = adminNombre;
-    }
-
-    public String getContrasena() {
-        return contrasena;
-    }
-
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
-    }
 
     /**
      * Metodo que verifica que el usuario exista en la base de datos y permite el acceso desde el service.
