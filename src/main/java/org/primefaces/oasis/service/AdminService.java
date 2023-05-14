@@ -1,19 +1,20 @@
 package org.primefaces.oasis.service;
 
+import org.primefaces.oasis.data.Admin;
 import org.primefaces.oasis.exceptions.AdminException;
+import org.primefaces.oasis.repository.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.primefaces.oasis.data.Admin;
-import org.primefaces.oasis.repository.AdminRepository;
 
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Utiliza al repositorio (UserRepository.java) la cual interactua con la base de datos
- * la anotacion (Autowired) del spring realiza la inyeccion de dependencias
- * fecha: 4/27/2023
- * Hecho por: Daniel Santiago Gomez Zabala
+ * Utiliza al repositorio (UserRepository.java) el cual sirve para interactuar con la base de datos-
+ * Autowired del spring realiza la inyeccion de dependencias-
+ *
+ * @author Daniel Santiago Gomez Zabala
+ * @version 4/27/2023
  */
 @Service
 public class AdminService {
@@ -22,15 +23,17 @@ public class AdminService {
 
     /**
      * Constructor para objetos de clase AdminService.
+     *
      * @param adminRepository Repositorio que accede a la base de datos.
      */
     @Autowired
-    public AdminService(AdminRepository adminRepository){
+    public AdminService(AdminRepository adminRepository) {
         this.adminRepository = adminRepository;
     }
 
     /**
      * Agrega un nuevo administrador a la base de datos.
+     *
      * @param admin Administrador que se quiere agregar.
      * @return El administrador que se agregó a la base de datos.
      */
@@ -40,6 +43,7 @@ public class AdminService {
 
     /**
      * Obtiene el administrador dada su id.
+     *
      * @param adminId Cadena con el nombre del administrador.
      * @return El administrador que tiene el nombre dado.
      */
@@ -51,20 +55,22 @@ public class AdminService {
     }
 
     /**
-     * Da todos los administradores que estan en la base de datos.
+     * Da todos los administradores que se encuentran en la base de datos.
+     *
      * @return Lista con los administradores disponibles.
      */
-    public List<Admin> getAllAdmin(){
+    public List<Admin> getAllAdmin() {
         return adminRepository.findAll();
     }
 
     /**
      * Actualiza un administrador en la base de datos.
+     *
      * @param admin administrador que se quiere actualizar.
      * @return El nuevo usuario actualizado.
      */
     public Admin updateAdmin(Admin admin) {
-        if(adminRepository.existsById(admin.getNombre())){
+        if (adminRepository.existsById(admin.getNombre())) {
             return adminRepository.save(admin);
         }
         return null;
@@ -72,16 +78,18 @@ public class AdminService {
 
     /**
      * Elimina un administrador de la base de datos.
+     *
      * @param adminId Nombre del administrador.
      */
-    public void deleteAdmin(String adminId){
+    public void deleteAdmin(String adminId) {
         adminRepository.deleteById(adminId);
     }
 
     /**
-     * Metodo que valida que el usuario exista en la base de datos y permite el acceso
-     * @exception AdminException INVALID_PASSWORD, si el usuario existe pero la contrasena dada es incorrecta.
-     *                             INVALID_NAME, si no existe un administrador con ese nombre de usuario.
+     * Verifica que el usuario exista en la base de datos y permite el acceso.
+     *
+     * @throws AdminException INVALID_PASSWORD, si el usuario existe pero la contrasena dada es incorrecta.
+     *                        INVALID_NAME, si no existe un administrador con ese nombre de usuario.
      */
     public void login(String nombre, String contrasena) throws AdminException {
         if (nombre.equals("")) throw new AdminException(AdminException.NOMBRE_VACIO);

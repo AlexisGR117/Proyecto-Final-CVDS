@@ -1,89 +1,88 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
+<html xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
+      xmlns="http://www.w3.org/1999/xhtml"
       lang="es">
-    <h:head>
-        <link href="diseño.css" rel="stylesheet"/>
-        <f:facet name="first">
-            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
-            <meta name="apple-mobile-web-app-capable" content="yes" />
-        </f:facet>
-        <title>PrimeFaces Omega</title>
-    </h:head>
-    <h:body class="bodyp">
-        <div style="background-color:grey;">
-            <div style="background-color:transparent;">
-                <div class="card">
-                    <h:form>
-                        <p:menubar>
-                            <p:menuitem outcome="inicio" value="Inicio" icon="pi pi-home"/>
-                            <p:divider layout="vertical"/>
-                            <p:menuitem outcome="nosotros" value="Nosotros" icon="pi pi-user"/>
-                            <p:divider layout="vertical"/>
-                            <p:submenu label="servicios" value="Servicios"  icon="pi pi-fw pi-book">
-                                <p:menuitem value="Perdones"/>
-                                <p:menuitem value="Convertirse en un ciudadano americano"/>
-                                <p:menuitem value="Tarjeta verde a través de una oferta de empleo"/>
-                                <p:menuitem value="Visa de prometido(K1)"/>
-                                <p:menuitem value="Peticiones familiares"/>
-                                <p:menuitem value="Permisos de trabajo"/>
-                                <p:menuitem value="Ajuste de status"/>
-                                <p:menuitem value="Test"/>
-                            </p:submenu>
-                            <p:divider layout="vertical"/>
-                            <p:menuitem outcome="contacto" value="Contactanos" icon="pi pi-phone"/>
-                            <f:facet name="options">
-                                <p:button outcome="login" value="Log in" icon="pi pi-fw pi-sign-out"
-                                          styleClass="ui-button-info"/>
-                            </f:facet>
-                        </p:menubar>
-                    </h:form>
-                </div>
+<h:head>
+    <link href="diseño.css" rel="stylesheet"/>
+    <f:facet name="first">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+    </f:facet>
+    <title>PrimeFaces Omega</title>
+</h:head>
+<h:body class="bodyp">
+    <div style="background-color:grey;">
+        <div style="background-color:transparent;">
+            <div class="card">
+                <h:form>
+                    <p:menubar>
+                        <p:menuitem outcome="inicio" value="Inicio" icon="pi pi-home"/>
+                        <p:divider layout="vertical"/>
+                        <p:menuitem outcome="nosotros" value="Nosotros" icon="pi pi-user"/>
+                        <p:divider layout="vertical"/>
+                        <p:submenu label="servicios" value="Servicios" icon="pi pi-fw pi-book">
+                            <p:menuitem value="Perdones"/>
+                            <p:menuitem value="Convertirse en un ciudadano americano"/>
+                            <p:menuitem value="Tarjeta verde a través de una oferta de empleo"/>
+                            <p:menuitem value="Visa de prometido(K1)"/>
+                            <p:menuitem value="Peticiones familiares"/>
+                            <p:menuitem value="Permisos de trabajo"/>
+                            <p:menuitem value="Ajuste de status"/>
+                            <p:menuitem value="Test"/>
+                        </p:submenu>
+                        <p:divider layout="vertical"/>
+                        <p:menuitem outcome="contacto" value="Contactanos" icon="pi pi-phone"/>
+                        <f:facet name="options">
+                            <p:button outcome="login" value="Log in" icon="pi pi-fw pi-sign-out"
+                                      styleClass="ui-button-info"/>
+                        </f:facet>
+                    </p:menubar>
+                </h:form>
             </div>
         </div>
-        <div class="divp2">
-            <br/>
-            <br/>
-            <br/>
-            <h2 style="font-size: 40px;">Hispanic American</h2>
-            <h1 style="font-size: 50px;">Legal Services</h1>
-            <br/>
-            <h3 style="font-size: 30px;">se especializa en Ley de Inmigración. /Specializes in immigration</h3>
-            <br/>
-            <br/>
-            <br/>
-        </div> 
-        <div class="divsprincipal">
-            <h2 Class="fontcontacto2">Experiencia</h2>
-            <br/>
-            <p class="fontcontacto1">
-                Con más de 20 años de experiencia y cientos de clientes satisfechos que han podido legalizar su
-                estatus migratorio en los Estados Unidos
-            </p>
-        </div>     
-        <p:divider layout="horizontal" style="width: 50%; left: 27%;"/> 
-        <div class="divsprincipal">
-            <h2 Class="fontcontacto2">compromiso</h2>
-            <br/>
-            <p class="fontcontacto1">
-                Lo acompañamos en el desarrollo de su caso, garantizando que pondremos a su servicio toda nuestra
-                experiencia hasta su completa resolución
-            </p>
-        </div>  
-        <p:divider layout="horizontal" style="width: 50%; left: 27%;"/>
-        <div class="divsprincipal">
-            <h2 Class="fontcontacto2">Resultados</h2>
-            <br/>
-            <p class="fontcontacto1">
-                Nuestra misión es obtener los resultados de acuerdo a las necesidades de nuestros clientes, con
-                el empeño que pueden validar cientos de nuestros clientes</p>
-        </div>
+    </div>
+    <div class="divp2">
         <br/>
         <br/>
-    </h:body>
+        <br/>
+        <h2 style="font-size: 40px;">Hispanic American</h2>
+        <h1 style="font-size: 50px;">Legal Services</h1>
+        <br/>
+        <h3 style="font-size: 30px;">se especializa en Ley de Inmigración. /Specializes in immigration</h3>
+        <br/>
+        <br/>
+        <br/>
+    </div>
+    <div class="divsprincipal">
+        <h2 Class="fontcontacto2">Experiencia</h2>
+        <br/>
+        <p class="fontcontacto1">
+            Con más de 20 años de experiencia y cientos de clientes satisfechos que han podido legalizar su
+            estatus migratorio en los Estados Unidos
+        </p>
+    </div>
+    <p:divider layout="horizontal" style="width: 50%; left: 27%;"/>
+    <div class="divsprincipal">
+        <h2 Class="fontcontacto2">compromiso</h2>
+        <br/>
+        <p class="fontcontacto1">
+            Lo acompañamos en el desarrollo de su caso, garantizando que pondremos a su servicio toda nuestra
+            experiencia hasta su completa resolución
+        </p>
+    </div>
+    <p:divider layout="horizontal" style="width: 50%; left: 27%;"/>
+    <div class="divsprincipal">
+        <h2 Class="fontcontacto2">Resultados</h2>
+        <br/>
+        <p class="fontcontacto1">
+            Nuestra misión es obtener los resultados de acuerdo a las necesidades de nuestros clientes, con
+            el empeño que pueden validar cientos de nuestros clientes</p>
+    </div>
+    <br/>
+    <br/>
+</h:body>
 </html>

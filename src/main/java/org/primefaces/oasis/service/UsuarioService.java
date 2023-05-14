@@ -14,13 +14,15 @@ import java.util.List;
 @Service
 public class UsuarioService implements Serializable {
     private final UsuarioRepository usuarioRepository;
+
     @Autowired
     public UsuarioService(UsuarioRepository usuarioRepository) {
-        this.usuarioRepository=usuarioRepository;
+        this.usuarioRepository = usuarioRepository;
     }
 
     /**
-     * Este metodo se encarga de añadir un usuario a la base de datos
+     * Añade un usuario a la base de datos.
+     *
      * @param usuario Usuario que se quiere agregar a la base de datos.
      * @return El usuario que se agregó a la base de datos.
      */
@@ -29,7 +31,8 @@ public class UsuarioService implements Serializable {
     }
 
     /**
-     * Este metodo me retornara un usuario
+     * Retorna un usuario dada su id.
+     *
      * @param userId Long con el identificador del usuario.
      * @return El usuario que tiene el identificador dado.
      */
@@ -38,7 +41,8 @@ public class UsuarioService implements Serializable {
     }
 
     /**
-     * Este metodo se encarga de obtener todos los usuarios en la base de datos
+     * Obtiene todos los usuarios en la base de datos.
+     *
      * @return Todos los usuarios que hay en la base de datos.
      */
     public List<Usuario> getAllUsuarios() {
@@ -46,19 +50,21 @@ public class UsuarioService implements Serializable {
     }
 
     /**
-     * Este metodo se encarga de actualizar un usuario ya existente en la base de datos
+     * Actualiza un usuario ya existente en la base de datos.
+     *
      * @param usuario El usuario que se quiere actualizar.
      * @return El usuario actualizado.
      */
-    public Usuario updateUsuario(Usuario usuario){
-        if(usuarioRepository.existsById(usuario.getUsuarioId())) {
+    public Usuario updateUsuario(Usuario usuario) {
+        if (usuarioRepository.existsById(usuario.getUsuarioId())) {
             return usuarioRepository.save(usuario);
         }
         return null;
     }
 
     /**
-     * Este metodo se encarga de eliminar un usuario en la base de datos
+     * Elimina un usuario en la base de datos.
+     *
      * @param usuarioId Long con el identificador del usuario que se quiere eliminar.
      */
     public void deleteUsuario(Long usuarioId) {

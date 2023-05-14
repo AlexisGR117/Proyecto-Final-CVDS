@@ -1,5 +1,7 @@
 package org.primefaces.oasis.service;
-import org.junit.jupiter.api.*;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -17,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class AdminSTest{
+class AdminSTest {
     @Mock
     private AdminRepository adminRepository;
 
@@ -34,7 +36,7 @@ class AdminSTest{
     }
 
     @Test
-    void testAddAdmin() {
+    void pruebaAgregarAdministrador() {
         when(adminRepository.save(any(Admin.class))).thenReturn(admin);
         Admin adminGuardado = adminService.addAdmin(admin);
         verify(adminRepository, times(1)).save(admin);
@@ -42,20 +44,20 @@ class AdminSTest{
     }
 
     @Test
-    void testGetAdmin() {
+    void pruebaObtenerAdministrador() {
         try {
             when(adminRepository.findById(anyString())).thenReturn(Optional.of(admin));
             Admin adminEncontrado = adminService.getAdmin("Santiago Administrador");
             verify(adminRepository, times(1)).findById("Santiago Administrador");
             assertEquals(admin, adminEncontrado);
-        } catch (Exception e){
+        } catch (Exception e) {
             fail("Threw a exception");
         }
 
     }
 
     @Test
-    void testGetAllAdmin() {
+    void pruebaObtenerTodosLosAdministradores() {
         List<Admin> admins = new ArrayList<>();
         admins.add(admin);
         when(adminRepository.findAll()).thenReturn(admins);
@@ -65,7 +67,7 @@ class AdminSTest{
     }
 
     @Test
-    void testUpdateAdmin() {
+    void pruebaActualizarAdministrador() {
         when(adminRepository.existsById(anyString())).thenReturn(true);
         when(adminRepository.save(any(Admin.class))).thenReturn(admin);
         Admin adminActualizado = adminService.updateAdmin(admin);
@@ -75,14 +77,14 @@ class AdminSTest{
     }
 
     @Test
-    void testDeleteAdmin() {
+    void pruebaEliminarAdministrador() {
         doNothing().when(adminRepository).deleteById(anyString());
         adminService.deleteAdmin("Santiago Administrador");
         verify(adminRepository, times(1)).deleteById("Santiago Administrador");
     }
 
     @Test
-    void testContrasenaIncorrecta(){
+    void pruebaIngresarContrasenaIncorrecta() {
         when(adminRepository.findById("Santiago Administrador")).thenReturn(Optional.of(admin));
         try {
             adminService.login("Santiago Administrador", "78956");
@@ -93,7 +95,7 @@ class AdminSTest{
     }
 
     @Test
-    void testUsuarioIncorrecto() {
+    void pruebaIngresarAdministradorInexistente() {
         try {
             when(adminRepository.findById("Andres Administrador")).thenReturn(Optional.empty());
             adminService.login("Andres Administrador", "12345");
@@ -104,11 +106,11 @@ class AdminSTest{
     }
 
     @Test
-    void testUsuarioCorrecto(){
+    void pruebaIngresarAdministradorExistente() {
         when(adminRepository.findById("Santiago Administrador")).thenReturn(Optional.of(admin));
         try {
             adminService.login("Santiago Administrador", "12345");
-        } catch (Exception e){
+        } catch (Exception e) {
             fail("Threw a exception");
         }
     }

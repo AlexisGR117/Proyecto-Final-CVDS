@@ -12,6 +12,7 @@ public class AdminException extends Exception {
 
     /**
      * Constructor para objetos de clase AdminException.
+     *
      * @param message Mensaje de la excepción.
      */
     public AdminException(String message) {

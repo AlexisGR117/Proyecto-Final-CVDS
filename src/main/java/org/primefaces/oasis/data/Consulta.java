@@ -1,24 +1,22 @@
 package org.primefaces.oasis.data;
 
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import org.primefaces.oasis.service.EstadoConsulta;
 
 import javax.persistence.*;
 import java.io.File;
 import java.util.StringJoiner;
 
-
 /**
- * El @Table es para que si so si asi se llama la tabla en la base de datos.
- * Lombock generara equals y hashcode automaticamente es decir no aparece ene l codigo pero en running time
- * existen y pueden ser llamados
- * Lombock generara los getter y setters segun se modificquen es decir existen mas  no aparecen el codigo
- * Lombock creara el consstructor con solo algunos de los atributos estos son los que tienen la etiqueta @nOnULL
+ * Entidad de base de datos que guarda la información de la consulta.
  */
 @Entity
-@Table(name="CONSULTAS")
+@Table(name = "CONSULTAS")
 @EqualsAndHashCode
-@Getter @Setter
+@Getter
+@Setter
 public class Consulta {
 
     @EmbeddedId
@@ -38,13 +36,21 @@ public class Consulta {
     private Usuario usuario;
 
     /**
-     * Constructor vacio
+     * Constructor vacio para objetos de clase consulta.
      */
-    public Consulta(){}
+    public Consulta() {
+    }
 
-    public Consulta(String razonConsulta, ConsultaId consultaid, Usuario usuario) {
+    /**
+     * Constructor para objetos de clase Consulta.
+     *
+     * @param razonConsulta Motivo de la consulta dada por el usuario.
+     * @param consultaId Identificador de la consulta formado por la fecha y la hora.
+     * @param usuario Usuario al que corresponde la consulta.
+     */
+    public Consulta(String razonConsulta, ConsultaId consultaId, Usuario usuario) {
         this.razonConsulta = razonConsulta;
-        id = consultaid;
+        id = consultaId;
         this.usuario = usuario;
         estadoConsulta = EstadoConsulta.AGENDADA;
     }
