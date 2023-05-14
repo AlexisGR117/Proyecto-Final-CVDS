@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class UsuarioSTest{
+class UsuarioSTest {
     @Mock
     private UsuarioRepository usuarioRepository;
 
@@ -35,7 +35,7 @@ class UsuarioSTest{
     }
 
     @Test
-    void testAddUsuario() {
+    void pruebaAgregarUsuario() {
         when(usuarioRepository.save(any(Usuario.class))).thenReturn(usuario);
 
         Usuario usuarioGuardado = usuarioService.addUsuario(usuario);
@@ -45,7 +45,7 @@ class UsuarioSTest{
     }
 
     @Test
-    void testGetUsuario() {
+    void pruebaObtenerUsuario() {
         when(usuarioRepository.findById(anyLong())).thenReturn(Optional.of(usuario));
 
         Usuario usuarioEncontrado = usuarioService.getUsuario(1L);
@@ -55,7 +55,7 @@ class UsuarioSTest{
     }
 
     @Test
-    void testGetAllUsuarios() {
+    void pruebaObtenerTodosLosUsuarios() {
         List<Usuario> usuarios = new ArrayList<>();
         usuarios.add(usuario);
 
@@ -68,7 +68,7 @@ class UsuarioSTest{
     }
 
     @Test
-    void testUpdateUsuario() {
+    void pruebaActualizarUsuario() {
         when(usuarioRepository.existsById(anyLong())).thenReturn(true);
         when(usuarioRepository.save(any(Usuario.class))).thenReturn(usuario);
 
@@ -80,7 +80,7 @@ class UsuarioSTest{
     }
 
     @Test
-    void testDeleteUsuario() {
+    void pruebaEliminarUsuario() {
         doNothing().when(usuarioRepository).deleteById(anyLong());
 
         usuarioService.deleteUsuario(1L);

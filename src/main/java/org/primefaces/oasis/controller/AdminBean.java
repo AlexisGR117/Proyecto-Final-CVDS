@@ -17,14 +17,16 @@ import javax.faces.context.FacesContext;
 import java.io.Serializable;
 
 /**
- * Clase que permite tener el usuario como objeto ademas de conectar y anadir usuarios a la base de datos
- * fecha: 4/27/2023
+ * Bean que maneja la interacciones del administrador con el sitio web para login.
+ *
  * @author Daniel Santiago Gomez Zabala
+ * @version 4/27/2023
  */
 @Component
 @ManagedBean(name = "adminBean")
 @SessionScoped
-@Setter @Getter
+@Setter
+@Getter
 public class AdminBean implements Serializable {
 
     @Autowired
@@ -34,7 +36,8 @@ public class AdminBean implements Serializable {
 
 
     /**
-     * Metodo que verifica que el usuario exista en la base de datos y permite el acceso desde el service.
+     * Verifica que el usuario exista en la base de datos y permite el acceso desde el service.
+     *
      * @return La página a la que se va a redirigir si el login es exitoso.
      */
     public String login() {
@@ -49,7 +52,7 @@ public class AdminBean implements Serializable {
     }
 
     /**
-     * Metodo donde se puede anadir usuarios a la base de datos y además los muestra en consola.
+     * Agrega usuarios a la base de datos.
      */
     @Bean
     public CommandLineRunner currentUser() {
