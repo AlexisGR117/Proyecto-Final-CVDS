@@ -1,6 +1,6 @@
-# Proyecto Final
+# Proyecto Final - OASIS
 
-Realizaremos una aplicación web (MVP) para solucionar un problema de un cliente real, en donde se podrá solucionar una necesidad real de un cliente.
+Realizaremos una aplicación web (MVP) para solucionar un problema de un cliente real, el cual en esta ocasión se trata de una página que permita el agendamiento de citas y la administración de estas por parte del personal designado para ello, habra un formulario el cual recopilará toda la información del cliente junto a su firma, donde este recibira una confirmación via correo electronico del agendamiento. Una vez agendada el administrador podra ver la información de esta en su portal, donde podra tener control, cambiar el estado y agregar observaciones a la cita respectiva.
 
 **Curso** 
 
