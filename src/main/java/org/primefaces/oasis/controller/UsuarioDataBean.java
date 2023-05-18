@@ -88,6 +88,7 @@ public class UsuarioDataBean implements Serializable {
                     Integer.parseInt(tiempo[1])));
             Consulta consultaNueva = new Consulta(razonConsulta, consultaIdNueva, usuario);
             consultaService.addConsulta(consultaNueva);
+            consultaService.enviarCorreo(usuario,consultaNueva);
         } catch (NullPointerException e) {
             throw new ConsultasException(ConsultasException.CONSULTA_SIN_HORA);
         }
