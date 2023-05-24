@@ -13,6 +13,7 @@ public class ConsultasException extends Exception {
 
     /**
      * Constructor para objetos de clase ConsultasException.
+     *
      * @param message Mensaje de la excepción.
      */
     public ConsultasException(String message) {

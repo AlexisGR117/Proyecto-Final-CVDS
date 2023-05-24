@@ -1,18 +1,17 @@
 package org.primefaces.oasis.controller;
 
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.primefaces.PrimeFaces;
 import org.primefaces.oasis.data.Consulta;
 import org.primefaces.oasis.data.ConsultaId;
 import org.primefaces.oasis.data.Usuario;
-
 import org.primefaces.oasis.exceptions.ConsultasException;
 import org.primefaces.oasis.service.ConsultaService;
 import org.primefaces.oasis.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.annotation.ApplicationScope;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -28,12 +27,12 @@ import java.util.Locale;
 
 /**
  * Bean que maneja la interacciones del usuario con la página del formulario para programar la consulta.
- * Lombock creara los getter, setters, constructor equals, to String y demas con la opcion de @Data
  */
 @Component
 @ManagedBean(name = "usuarioDataBean")
 @ViewScoped
-@Getter @Setter
+@Getter
+@Setter
 public class UsuarioDataBean implements Serializable {
     @Autowired
     UsuarioService usuarioService;
@@ -55,7 +54,7 @@ public class UsuarioDataBean implements Serializable {
     private List<Integer> diasDeshabilitados;
 
     /**
-     * Constructor para objetos de clase UsuarioDataBean
+     * Constructor para objetos de clase UsuarioDataBean.
      */
     public UsuarioDataBean() {
         fecha = LocalDate.now().plusDays(1);
@@ -67,78 +66,85 @@ public class UsuarioDataBean implements Serializable {
     }
 
     /**
-     * Crea un usuario nuevo con la informacion ingresada y lo guarda en la base de datos.
+     * Crea un usuario nuevo con los datos ingresados y lo guarda en la base de datos.
+     *
      * @return El nuevo usuario que se ha creado.
      */
-    public Usuario anadirUsuario() {
-        Usuario nuevoUsuario = new Usuario(nombre,email,telefono,ciudad,noIdentificacion,firma);
+    public Usuario agregarUsuario() {
+        Usuario nuevoUsuario = new Usuario(nombre, email, telefono, ciudad, noIdentificacion, firma);
         usuarioService.addUsuario(nuevoUsuario);
         return nuevoUsuario;
     }
 
     /**
-     * Crea una consulta nueva con la informacion ingresada y la guarda en la base de datos.
+     * Crea una consulta nueva con los datos ingresados y la guarda en la base de datos.
+     *
      * @param usuario Usuario que programo la consulta.
      */
-    public void anadirConsulta(Usuario usuario) throws ConsultasException {
+    public void agregarConsulta(Usuario usuario) throws ConsultasException {
         try {
             String[] tiempo = hora.split(":");
             ConsultaId consultaIdNueva = new ConsultaId(fecha, LocalTime.of(Integer.parseInt(tiempo[0]),
                     Integer.parseInt(tiempo[1])));
             Consulta consultaNueva = new Consulta(razonConsulta, consultaIdNueva, usuario);
             consultaService.addConsulta(consultaNueva);
+            consultaService.enviarCorreo(usuario,consultaNueva);
         } catch (NullPointerException e) {
             throw new ConsultasException(ConsultasException.CONSULTA_SIN_HORA);
         }
     }
 
     /**
-     * Obtiene todas las horas que no estan programadas para el dia seleccionado por el usuario
-     * @return Lista de String con las horas disponibles para el dia seleccionado
+     * Obtiene todas las horas que no se encuentran programadas para la fecha seleccionada por el usuario.
+     *
+     * @return Lista de String con las horas disponibles para el dia seleccionado.
      */
     public List<String> getConsultasFecha() {
         try {
             return consultaService.getConsultasFecha(fecha);
         } catch (ConsultasException e) {
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error!: " , e.getMessage());
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error!: ", e.getMessage());
             PrimeFaces.current().dialog().showMessageDynamic(message);
             return Collections.emptyList();
         }
     }
 
     /**
-     * Establece la hora seleccioanda y envia un mensaje con la confirmacion de la seleccion
-     * @param hora La hora que selecciono el usuario
+     * Establece la hora seleccionada y manda un mensaje con esta.
+     *
+     * @param hora La hora que ha elegido el usuario.
      */
-    public void setHora(String hora){
+    public void setHora(String hora) {
         this.hora = hora;
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
-                "Fecha de la consulta seleccionada: ", fechaString()  + " a las " + hora);
+                "Fecha de la consulta seleccionada: ", fechaString() + " a las " + hora);
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
     /**
-     * Con la fecha seleccionada por el usuario se da la toda la fecha en espanol
-     * @return String con la fecha de la consulta en espanol
+     * Con la fecha seleccionada por el usuario se da toda la fecha en espanol.
+     *
+     * @return String con la fecha de la consulta en espanol.
      */
     public String fechaString() {
         return fecha.getDayOfWeek().getDisplayName(TextStyle.FULL, new Locale("es", "ES")) +
-               " " + fecha.getDayOfMonth() + " de " +
-               fecha.getMonth().getDisplayName(TextStyle.FULL, new Locale("es", "ES")) + " de " +
-               fecha.getYear();
+                " " + fecha.getDayOfMonth() + " de " +
+                fecha.getMonth().getDisplayName(TextStyle.FULL, new Locale("es", "ES")) + " de " +
+                fecha.getYear();
     }
 
     /**
      * Programa la consulta con los datos ingresados por el usuario, si no ha seleccionado la hora
      * se manda un mensaje indicando que no lo ha seleccionado, de lo contrario crea el usuario si no
      * existe y crea la consulta.
-     * @return La pagina a la cual se quiere redirigir despues de agendar la consulta.
+     *
+     * @return El sitio web a la cual se quiere redirigir al agendar la consulta.
      */
     public String programarConsulta() {
         FacesMessage message;
         try {
-            Usuario usuarioNuevo = anadirUsuario();
-            anadirConsulta(usuarioNuevo);
+            Usuario usuarioNuevo = agregarUsuario();
+            agregarConsulta(usuarioNuevo);
         } catch (ConsultasException e) {
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "Seleccione horario", e.getMessage());

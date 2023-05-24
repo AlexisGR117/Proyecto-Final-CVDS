@@ -1,43 +1,41 @@
 package org.primefaces.oasis.controller;
 
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
-import javax.inject.Inject;
-
+import lombok.Getter;
+import lombok.Setter;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
+import org.primefaces.model.ScheduleModel;
 import org.primefaces.model.file.UploadedFile;
+import org.primefaces.oasis.data.Consulta;
 import org.primefaces.oasis.service.ConsultaService;
 import org.primefaces.oasis.service.EstadoConsulta;
 import org.primefaces.oasis.service.UsuarioService;
 import org.springframework.stereotype.Component;
 
-import lombok.Getter;
-import lombok.Setter;
-
-import org.primefaces.event.SelectEvent;
-import org.primefaces.model.DefaultScheduleEvent;
-import org.primefaces.model.ScheduleModel;
-import org.primefaces.oasis.data.Consulta;
-
+import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.ManagedBean;
+import javax.inject.Inject;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.List;
 
 /**
- * Bean que maneja la interacciones del administrador con la página de consultas programadas.
+ * Bean que maneja la interacciones del administrador con el sitio web de consultas programadas.
  */
 @Component
 @ManagedBean(name = "calendarioBean")
 @ApplicationScoped
-@Getter @Setter
+@Getter
+@Setter
 public class CalendarioBean {
-    
+
     @Inject
     private ConsultaService consultaService;
     @Inject
     private UsuarioService usuarioService;
-    private ScheduleModel modelo =  new DefaultScheduleModel();
+    private ScheduleModel modelo = new DefaultScheduleModel();
     private String severTimeZone = ZoneId.systemDefault().toString();
     private Consulta consulta;
     private DefaultScheduleEvent<?> eventoSeleccionado = new DefaultScheduleEvent<>();
@@ -47,12 +45,14 @@ public class CalendarioBean {
     private String observacionesConsulta;
 
     /**
-     * Metodo que selecciona un evento en la iteracion de las consultas en la base de datos
-     * @param seleccionEvento El evento que ha seleccionado el administrador en el Schedule
+     * Al seleccionar un evento establece la consulta, el estado, las observaciones y el comprobante correspondiente
+     * al evento.
+     *
+     * @param eventoSeleccionado El evento que ha seleccionado el administrador en el Schedule.
      */
-    public void onEventSelect(SelectEvent<DefaultScheduleEvent<?>> seleccionEvento) {
-        eventoSeleccionado = seleccionEvento.getObject();
-        consulta = eventosConsultas.get(eventoSeleccionado);
+    public void onEventSelect(SelectEvent<DefaultScheduleEvent<?>> eventoSeleccionado) {
+        this.eventoSeleccionado = eventoSeleccionado.getObject();
+        consulta = eventosConsultas.get(this.eventoSeleccionado);
         estadoConsulta = consulta.getEstadoConsulta();
         observacionesConsulta = consulta.getObservaciones();
         //Falta obtener el comprobante de pago
@@ -60,7 +60,7 @@ public class CalendarioBean {
     }
 
     /**
-     * Guarda la consulta que se ha seleccionado y se actualiza dados us cambios.
+     * Guarda la consulta que se ha seleccionado y se actualiza dados sus cambios.
      */
     public void guardarConsulta() {
         if (!consulta.getEstadoConsulta().equals(estadoConsulta)) {
@@ -78,8 +78,9 @@ public class CalendarioBean {
     }
 
     /**
-     * Dado el estado de la consulta le da un color a esta
-     * @param estadoConsulta Estado de la consulta que peude ser Agendado, Pagado o Atendido.
+     * Dado el estado de la consulta le da un color a esta.
+     *
+     * @param estadoConsulta Estado de la consulta que puede ser Agendado, Pagado o Atendido.
      * @return String con el hexadecimal del color que representa el estado de la consulta.
      */
     public String colorConsulta(EstadoConsulta estadoConsulta) {
@@ -102,8 +103,8 @@ public class CalendarioBean {
     }
 
     /**
-     * Con base en las consultas que hay agendadas las crea un evento para cada una y despues los agrega al modelo
-     * del Schedule
+     * Con base en las consultas que hay agendadas les crea un evento a cada una y las agrega al modelo
+     * del Schedule.
      */
     public void crearEventos() {
         modelo.clear();
@@ -111,7 +112,7 @@ public class CalendarioBean {
         DefaultScheduleEvent<?> evento;
         List<Consulta> consultas = consultaService.getAllConsultas();
         String color;
-        for (Consulta c: consultas){
+        for (Consulta c : consultas) {
             color = colorConsulta(c.getEstadoConsulta());
             LocalDateTime fechaInicial = c.getId().getFecha().atTime(c.getId().getHora());
             LocalDateTime fechaFinal = fechaInicial.plusMinutes(ConsultaService.INTERVALO_MINUTOS);
@@ -130,11 +131,11 @@ public class CalendarioBean {
         }
     }
 
-    public void setEstadoConsulta(String estadoConsulta) {
-        this.estadoConsulta = EstadoConsulta.valueOf(estadoConsulta);
-    }
-
     public String getEstadoConsulta() {
         return String.valueOf(estadoConsulta);
+    }
+
+    public void setEstadoConsulta(String estadoConsulta) {
+        this.estadoConsulta = EstadoConsulta.valueOf(estadoConsulta);
     }
 }
