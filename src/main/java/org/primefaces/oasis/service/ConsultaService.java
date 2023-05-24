@@ -161,7 +161,8 @@ public class ConsultaService implements Serializable {
             message.setRecipients(Message.RecipientType.TO,InternetAddress.parse(usuario.getEmail()));
             message.setSubject("Confirmacion de Cita");
             message.setText("Hola " + usuario.getNombre() + "\n" + "Este correo es para confirmarle que su cita quedo " +
-                    "agendada para el dia " + consulta.getId().getFecha().toString() + " a la hora: " + consulta.getId().getHora().toString());
+                    "agendada para el dia " + consulta.getId().getFecha().toString() + " a la hora: " + consulta.getId().getHora().toString() + " La informacion " +
+                    "suministrada fue: \n" + "Ciudad:" + usuario.getCiudad() + "\n" + "Razon conuslta: " + consulta.getRazonConsulta());
             Transport.send(message);
         }catch (MessagingException e){
             throw new RuntimeException(e);
